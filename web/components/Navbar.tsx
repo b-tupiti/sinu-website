@@ -7,12 +7,12 @@ export default function Navbar() {
   return (
     <header className="w-full z-50">
       {/* Top Utility Bar */}
-      <div className="w-full bg-primary text-white/80 py-2 border-b border-white/10 hidden md:block">
-        <div className="max-w-screen-2xl mx-auto px-12 flex justify-end items-center space-x-6 text-xs font-bold uppercase tracking-widest">
+      <div className="w-full bg-surface text-primary py-2 border-b border-outline-variant/30 hidden md:block">
+        <div className="max-w-screen-2xl mx-auto px-12 flex justify-end items-center space-x-6 text-[11px] font-medium uppercase tracking-widest">
           <a className="hover:text-tertiary-fixed-dim transition-colors" href="#">E-Learning</a>
-          <span className="w-px h-3 bg-white/20"></span>
+          <span className="w-px h-3 bg-primary/20"></span>
           <a className="hover:text-tertiary-fixed-dim transition-colors" href="#">Student Portal</a>
-          <span className="w-px h-3 bg-white/20"></span>
+          <span className="w-px h-3 bg-primary/20"></span>
           <a className="hover:text-tertiary-fixed-dim transition-colors" href="#">Staff Email</a>
         </div>
       </div>
