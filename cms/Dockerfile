@@ -16,12 +16,9 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Install the project requirements.
+# Install the project requirements (gunicorn is pinned in requirements.txt).
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
-
-# Install the application server.
-RUN pip install "gunicorn==25.1.0"
 
 
 # RUNTIME STAGE
@@ -50,7 +47,8 @@ EXPOSE 8000
 # 3. Add the virtual environment to PATH.
 ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
-    PATH="/opt/venv/bin:$PATH"
+    PATH="/opt/venv/bin:$PATH" \
+    DJANGO_SETTINGS_MODULE=core.settings.production
 
 
 
@@ -71,16 +69,11 @@ COPY --chown=wagtail:wagtail . .
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
-# Collect static files.
-RUN python manage.py collectstatic --noinput --clear
+# Collect static files. SECRET_KEY / DATABASE_URL are only needed so
+# production settings will import cleanly — no DB is actually touched.
+RUN SECRET_KEY=build DATABASE_URL=sqlite:///build.sqlite3 \
+    python manage.py collectstatic --noinput --clear
 
-# Runtime command that executes when "docker run" is called, it does the
-# following:
-#   1. Migrate the database.
-#   2. Start the application server.
-# WARNING:
-#   Migrating database at the same time as starting the server IS NOT THE BEST
-#   PRACTICE. The database should be migrated manually or using the release
-#   phase facilities of your hosting platform. This is used only so the
-#   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn core.wsgi:application
+# Run migrations separately (e.g. as a Cloud Run Job) — do not run them
+# from CMD, which races on multi-instance startup.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 60 core.wsgi:application
