@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "site": "sinu-cms",
+    "public": "firebase-public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "cms",
+          "region": "australia-southeast1"
+        }
+      }
+    ]
+  }
+}
