@@ -7,3 +7,5 @@ __pycache__/
 /static/
 .firebase/
 firebase-debug.log*
+cookies*.txt
+page*.html
