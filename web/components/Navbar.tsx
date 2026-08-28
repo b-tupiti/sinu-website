@@ -1,5 +1,6 @@
 "use client"; // <--- Add this line at the top
 
+import Image from 'next/image';
 import { Search, UserCircle, Mail, Laptop } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -20,9 +21,14 @@ export default function Navbar() {
       {/* Main Navigation */}
       <nav className="w-full h-20 sticky top-0 bg-white dark:bg-primary z-50 flex items-center border-b border-outline-variant/10 shadow-lg shadow-primary/10">
         <div className="flex justify-between items-center w-full px-12 max-w-screen-2xl mx-auto">
-          <div className="text-2xl font-headline font-bold text-primary dark:text-white uppercase tracking-wider">
-            SINU
-          </div>
+          <Image
+            src="/sinu-logo-revamped.svg"
+            alt="SINU"
+            width={320}
+            height={87}
+            className="h-14 w-auto"
+            priority
+          />
           
           <div className="hidden md:flex items-center space-x-8 font-headline text-lg tracking-tight">
             <a className="text-tertiary-fixed-dim border-b-2 border-tertiary-fixed-dim pb-1 font-bold" href="#">Admissions</a>
