@@ -1,4 +1,5 @@
 "use client"; // <--- Add this line at the top
+import Image from 'next/image';
 import { motion } from 'motion/react';
 
 const faculties = [
@@ -33,15 +34,17 @@ export default function Faculties() {
             <motion.div 
               key={idx}
               whileHover={{ scale: 1.02 }}
-              className="group relative aspect-[3/4] overflow-hidden rounded-lg bg-primary cursor-pointer"
+              className="group relative aspect-3/4 overflow-hidden rounded-lg bg-primary cursor-pointer"
             >
-              <img 
-                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700" 
-                alt={faculty.title} 
+              <Image
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+                alt={faculty.title}
                 src={faculty.img}
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 w-full">
                 <h3 className="font-headline text-2xl text-white mb-2">{faculty.title}</h3>
                 <p className="text-white/70 text-sm mb-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
