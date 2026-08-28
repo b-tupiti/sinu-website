@@ -46,8 +46,8 @@ export default function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* L-R gradient overlay, ending around 35% */}
-        <div className="absolute inset-0 bg-linear-to-r from-tertiary-fixed-dim/90 to-transparent to-35%" />
+        {/* L-R dark-navy gradient overlay, ending around 35% */}
+        <div className="absolute inset-0 bg-linear-to-r from-[#00152b]/90 to-transparent to-35%" />
       </div>
 
       {/* Slide indicators — top-left of the hero */}
