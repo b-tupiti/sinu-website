@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "motion/react";
@@ -12,12 +13,15 @@ export default function FacultyScienceAndTechnologyPage() {
       <main className="grow">
         {/* Hero Section */}
         <section className="relative h-[60vh] bg-primary flex items-center overflow-hidden">
-          <img 
-            className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
+          <Image
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-30 mix-blend-overlay"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9SHZ1hnxNsMi6jevm_CxnsLCMd6pKHW5p5H6Og5fHYRs-5JC7ff4P5g55mKv3umw4P82AnB4mCzP3GQR0J-FrJfqd7OddaNUhgBS89n98nI79VjG0aqqRv8SL2_O2Lx76IIDE7376YunN88dpoq2gkRyTYkCvBgdhMkmDQ4WL2AUvFIZPCkJhrkbgn-teTtGyOoh6_lDCKiGtywk7BBx3FbKjn8yMCt54uukSHaY9JiDMMNQxaxinyAkzStxeEUdKzWqPR4deuc4"
             alt="Science and Technology"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-primary/90 via-primary/50 to-transparent"></div>
           <div className="max-w-screen-2xl mx-auto px-12 relative z-10 w-full flex items-center mt-12">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}

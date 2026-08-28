@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Share2, Share } from 'lucide-react';
 
 export default function ContactSection() {
@@ -12,10 +13,12 @@ export default function ContactSection() {
               <h2 className="font-headline text-3xl font-bold text-primary mb-4">Contact Us</h2>
               <p className="text-on-surface-variant text-sm mb-6">Have questions? Reach out to our dedicated support team in the Solomon Islands.</p>
             </div>
-            <div className="w-full md:w-48 h-48">
-              <img 
-                alt="welcoming university office" 
-                className="w-full h-full object-cover rounded-lg shadow-md" 
+            <div className="relative w-full md:w-48 h-48">
+              <Image
+                fill
+                sizes="(min-width: 768px) 192px, 100vw"
+                alt="welcoming university office"
+                className="object-cover rounded-lg shadow-md"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCujl9l5pVHrSGr0zRwaoZlFYPa0TAiA4U4yU8HaAFdpHwVNaXSufa5AcC-5IFoL91afZE-1eCOEzNVRLynWzPTVMkrZQf9rm3R5aJ38AlCbeHk35SKyf5rFab0iIDGYu1gO_afoRn3e8CUMbiAmn3sJs_ZsDhkdhlp-MTCXRoiP40JR16uZgtFLQDN6CjF23qCJYjCJCZ6VY5IMztNN9kdzxfUvjYggYlsqIP3IaeczCbmIMUfN3JXZyW_FoLPcPq5cRBg5za7Kkw"
                 referrerPolicy="no-referrer"
               />

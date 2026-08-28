@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 
 const newsItems = [
@@ -59,9 +60,11 @@ export default function NewsEvents() {
             <div className="space-y-8">
               {newsItems.map((news, idx) => (
                 <div key={idx} className="group flex gap-6 items-start cursor-pointer">
-                  <img 
-                    className="w-32 h-32 object-cover rounded-lg" 
-                    alt={news.title} 
+                  <Image
+                    width={128}
+                    height={128}
+                    className="w-32 h-32 object-cover rounded-lg"
+                    alt={news.title}
                     src={news.img}
                     referrerPolicy="no-referrer"
                   />
@@ -83,7 +86,7 @@ export default function NewsEvents() {
             <div className="space-y-4">
               {events.map((event, idx) => (
                 <div key={idx} className="p-6 bg-white rounded-lg editorial-shadow flex gap-6 items-center">
-                  <div className={`${event.isPrimary ? 'bg-primary text-white' : 'bg-primary/10 text-primary'} text-center p-4 rounded min-w-[80px]`}>
+                  <div className={`${event.isPrimary ? 'bg-primary text-white' : 'bg-primary/10 text-primary'} text-center p-4 rounded min-w-20`}>
                     <span className="block text-2xl font-bold">{event.day}</span>
                     <span className="text-xs uppercase font-bold tracking-widest">{event.month}</span>
                   </div>

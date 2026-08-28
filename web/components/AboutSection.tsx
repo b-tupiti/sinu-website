@@ -1,4 +1,5 @@
 "use client"; // <--- Add this line at the top
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -10,12 +11,16 @@ export default function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1">
             <div className="relative">
-              <img 
-                className="rounded-lg editorial-shadow w-full aspect-[4/5] object-cover" 
-                alt="diverse group of students sitting together in a modern campus outdoor lounge area sharing laptops and notes" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBycn_jK5Gs6-msION1N7_0EdToF8LtJNRXBzlz1Ch4IMP2mPRGLtOLdGNQydodDCcttfIUufKy5Lpzr5RCZgxm1k9LZCxKAo0sdyYVFKenAyEUqltBrbdTVpLkiPsi6mM6M2NS_DfkqOX9UlVNHBvlUBMIHMEL3af23qV5CHOyZnJ3S5bq5wzZUAd7jxZgC-mnOd-Q4FOLSaE8xiPNmKE698ev3pD4FXnqrnLis49IfiXTby17OAiAmdd8rYrNQWCpTYvlpVgG1d4"
-                referrerPolicy="no-referrer"
-              />
+              <div className="relative w-full aspect-4/5">
+                <Image
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="rounded-lg editorial-shadow object-cover"
+                  alt="diverse group of students sitting together in a modern campus outdoor lounge area sharing laptops and notes"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBycn_jK5Gs6-msION1N7_0EdToF8LtJNRXBzlz1Ch4IMP2mPRGLtOLdGNQydodDCcttfIUufKy5Lpzr5RCZgxm1k9LZCxKAo0sdyYVFKenAyEUqltBrbdTVpLkiPsi6mM6M2NS_DfkqOX9UlVNHBvlUBMIHMEL3af23qV5CHOyZnJ3S5bq5wzZUAd7jxZgC-mnOd-Q4FOLSaE8xiPNmKE698ev3pD4FXnqrnLis49IfiXTby17OAiAmdd8rYrNQWCpTYvlpVgG1d4"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <motion.div 
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -26,9 +31,11 @@ export default function AboutSection() {
                   &quot;Our mission is to foster academic excellence while honoring our Pacific roots.&quot;
                 </p>
                 <div className="mt-4 flex items-center gap-4">
-                  <img 
-                    className="w-12 h-12 rounded-full object-cover grayscale" 
-                    alt="portrait of a professional pacific islander woman in academic attire" 
+                  <Image
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-full object-cover grayscale"
+                    alt="portrait of a professional pacific islander woman in academic attire"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6xVg6ONNC6kWHb1jNqgEEGbCUEkbG5V8KzFB9kohN4JRoHfpodUaM-Q7jKvgT_usl7FLy7TZ6IcMC0ghR_iOP4cg4XXhWSeqY30vuSj8jWUgrJrKuphHXz4EIRxUUmCvxvJQEbOqiHyVOWB3wZgHt22xeC0h2BqhhFaSF1LS6sKoTMnzKWyWNeekWftAxsc5Ety6uPSHSw1uKnRqT2Mv_mw9Wko1gzs7Moa_7lQogy6YcIOMLoCO-EUC5fKWGeieMjSJ6-ugMD7E"
                     referrerPolicy="no-referrer"
                   />
