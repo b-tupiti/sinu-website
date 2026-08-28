@@ -2,7 +2,6 @@
 import AboutSection from "@/components/AboutSection";
 import CampusGallery from "@/components/CampusGallery";
 import ContactSection from "@/components/ContactSection";
-import DigitalGateway from "@/components/DigitalGateway";
 import Faculties from "@/components/Faculties";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -17,7 +16,6 @@ export default function Home() {
       <main className="grow">
         <Hero />
         <SearchSection />
-        <DigitalGateway />
         <AboutSection />
         <Faculties />
         <NewsEvents />
