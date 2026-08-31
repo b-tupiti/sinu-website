@@ -8,15 +8,16 @@ import { HeroAnnouncement } from "@/components/home/HeroAnnouncement";
 import { FacultyCarousel } from "@/components/home/FacultyCarousel";
 import { CentreCarousel } from "@/components/home/CentreCarousel";
 import { EventsPreview } from "@/components/home/EventsPreview";
+import { NewsPreview } from "@/components/home/NewsPreview";
 import { getHomepage } from "@/lib/cms/homepage";
 import { getFaculties } from "@/lib/cms/faculties";
-import { getEvents, getNews } from "@/lib/cms/events";
+import { getEvents, getNews, getResearchNews } from "@/lib/cms/events";
 
 const wrap = { maxWidth: "var(--container)", margin: "0 auto", padding: "0 24px" };
 const h2 = { margin: 0, fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h2)", letterSpacing: "-0.01em", color: "var(--text-heading)" };
 
 export default async function Home() {
-  const [homepage, faculties, events, news] = await Promise.all([getHomepage(), getFaculties(), getEvents(), getNews()]);
+  const [homepage, faculties, events, news, researchNews] = await Promise.all([getHomepage(), getFaculties(), getEvents(), getNews(), getResearchNews()]);
 
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
@@ -187,20 +188,35 @@ export default async function Home() {
 
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--surface-sunken)", borderTop: "1px solid var(--line-1)", borderBottom: "1px solid var(--line-1)" }}>
         <div style={{ ...wrap, paddingTop: "var(--sp-16)", paddingBottom: "var(--sp-16)" }}>
-          <div className="section-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--sp-8)" }}>
-            <h2 className="news-heading" style={{ margin: 0, fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h1)", letterSpacing: "-0.015em", color: "var(--text-heading)" }}>News & announcements</h2>
-            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none" }}>
+          <div className="section-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "var(--sp-8)", gap: 20 }}>
+            <div style={{ display: "grid", gap: 10, maxWidth: 640 }}>
+              <h2 className="news-heading" style={{ margin: 0, fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h1)", lineHeight: 1.08, letterSpacing: "-0.015em", color: "var(--text-heading)" }}>News</h2>
+              <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: "var(--t-lead)", lineHeight: 1.55, color: "var(--text-body)" }}>
+                Announcements, research updates, and stories from across the university and its communities.
+              </p>
+            </div>
+            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none", whiteSpace: "nowrap" }}>
               All news →
             </Link>
           </div>
-          <div style={{ display: "grid" }}>
-            {news.map((n) => (
-              <Link key={n.id} href="/events" style={{ display: "grid", gap: 4, padding: "20px 0", borderBottom: "1px solid var(--line-2)", textDecoration: "none" }}>
-                <span style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 18, color: "var(--text-heading)" }}>{n.title}</span>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--text-faint)" }}>{n.date}</span>
-              </Link>
-            ))}
+          <NewsPreview news={news} />
+        </div>
+      </section>
+
+      <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--bg-page)" }}>
+        <div style={{ ...wrap, paddingTop: "var(--sp-16)", paddingBottom: "var(--sp-16)" }}>
+          <div className="section-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "var(--sp-8)", gap: 20 }}>
+            <div style={{ display: "grid", gap: 10, maxWidth: 640 }}>
+              <h2 className="news-heading" style={{ margin: 0, fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h1)", lineHeight: 1.08, letterSpacing: "-0.015em", color: "var(--text-heading)" }}>Research news</h2>
+              <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: "var(--t-lead)", lineHeight: 1.55, color: "var(--text-body)" }}>
+                Grants, publications, and fieldwork from our researchers across the Pacific.
+              </p>
+            </div>
+            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none", whiteSpace: "nowrap" }}>
+              All research news →
+            </Link>
           </div>
+          <NewsPreview news={researchNews} />
         </div>
       </section>
 

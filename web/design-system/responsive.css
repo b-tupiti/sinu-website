@@ -83,6 +83,12 @@
     font-size: clamp(30px, 7vw, 40px) !important;
   }
 
+  /* News section: collapse featured + list to a single column stack */
+  .news-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--sp-8) !important;
+  }
+
   /* CTA section: text-only, hide the image split */
   .cta-section {
     min-height: auto !important;

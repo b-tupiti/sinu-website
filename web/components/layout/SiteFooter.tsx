@@ -15,15 +15,25 @@ const SOCIAL: [string, string][] = [
 ];
 
 const container = { maxWidth: "var(--container)", margin: "0 auto", padding: "0 24px", width: "100%" as const };
+const rule = "1px solid rgba(243,246,251,.14)";
 
 export function SiteFooter() {
   const h = { fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase" as const, color: "var(--teal-300)", marginBottom: 20 };
   const a = { fontFamily: "var(--font-sans)", fontSize: 14, lineHeight: 1.5, color: "rgba(243,246,251,.76)", textDecoration: "none" };
   return (
-    <footer className="footer-root" style={{ background: "var(--navy-900)", marginTop: 0, minHeight: "80vh", display: "flex", flexDirection: "column" }}>
-      <div style={{ padding: "var(--sp-16) 0 0" }}>
-        <div className="footer-top-row" style={{ ...container, display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 320 }}>
+    <footer
+      className="footer-root"
+      style={{
+        background: "radial-gradient(120% 90% at 0% 0%, rgba(47,184,204,.10) 0%, transparent 55%), linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 55%, #071227 100%)",
+        marginTop: 0,
+        minHeight: "80vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div style={{ padding: "var(--sp-16) 0" }}>
+        <div className="footer-top-row" style={{ ...container, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 320 }}>
             <Image src="/sinu-logo-r.png" alt="SINU" width={122} height={36} style={{ width: "fit-content" }} />
             <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13.5, lineHeight: 1.65, color: "rgba(243,246,251,.6)" }}>
               Kukum Campus, Honiara, Solomon Islands
@@ -49,14 +59,23 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div style={{ flex: 1, display: "flex", alignItems: "center", padding: "var(--sp-16) 0" }}>
-        <div className="footer-cols" style={{ ...container, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--sp-10)" }}>
-          {COLS.map(([title, items]) => (
-            <div key={title} style={{ display: "grid", gap: 14, alignContent: "start" }}>
+      <div style={{ borderTop: rule, borderBottom: rule, flex: 1, display: "flex", alignItems: "center", padding: "var(--sp-16) 0" }}>
+        <div className="footer-cols" style={{ ...container, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0 }}>
+          {COLS.map(([title, items], i) => (
+            <div
+              key={title}
+              style={{
+                display: "grid",
+                gap: 14,
+                alignContent: "start",
+                padding: i === 0 ? "0 var(--sp-8) 0 0" : "0 var(--sp-8)",
+                borderLeft: i === 0 ? "none" : rule,
+              }}
+            >
               <div style={h}>{title}</div>
-              {items.map((i) => (
-                <Link key={i} style={a} href="#">
-                  {i}
+              {items.map((it) => (
+                <Link key={it} style={a} href="#">
+                  {it}
                 </Link>
               ))}
             </div>
@@ -64,7 +83,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div style={{ borderTop: "1px solid rgba(243,246,251,.14)" }}>
+      <div>
         <div className="footer-bottom-row" style={{ ...container, padding: "22px 24px", display: "flex", gap: 20, flexWrap: "wrap", fontFamily: "var(--font-sans)", fontSize: 12.5, color: "rgba(243,246,251,.5)" }}>
           <span>© {new Date().getFullYear()} Solomon Islands National University. All rights reserved.</span>
           <span style={{ flex: 1 }} />

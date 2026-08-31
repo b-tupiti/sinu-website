@@ -49,6 +49,8 @@ export interface NewsItem {
   title: string;
   summary: string;
   date: string;
+  category?: string;
+  image: CMSImage;
 }
 
 export interface StaffMember {
