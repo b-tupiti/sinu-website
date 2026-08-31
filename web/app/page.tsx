@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { HeroSearch } from "@/components/home/HeroSearch";
+import { HeroCourseFinder } from "@/components/home/HeroCourseFinder";
 import { FacultyRow } from "@/components/home/FacultyRow";
 import { FeaturedCourseCard } from "@/components/home/FeaturedCourseCard";
 import { EventsPreview } from "@/components/home/EventsPreview";
@@ -59,8 +59,7 @@ export default async function Home() {
             <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, fontSize: 20, lineHeight: 1.5, color: "rgba(255,255,255,.8)", margin: "0 0 26px" }}>{homepage.lead}</p>
             {/* <div style={{ height: 1, background: "rgba(255,255,255,.14)", marginBottom: 26 }} />
             <p style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "rgba(255,255,255,.7)", margin: "0 0 30px" }}>{homepage.intro}</p> */}
-            <HeroSearch placeholder={homepage.searchPlaceholder} />
-            <div style={{ display: "flex", gap: 26, alignItems: "center", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 26, alignItems: "center", flexWrap: "wrap", marginTop: 8 }}>
               <Link
                 href="/admissions"
                 style={{ border: "none", cursor: "pointer", background: "#fff", color: "var(--navy-800)", fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 16, padding: "15px 32px", borderRadius: "var(--r-pill)", whiteSpace: "nowrap", textDecoration: "none" }}
@@ -85,18 +84,11 @@ export default async function Home() {
             border: "1px solid var(--line-2)",
             borderRadius: "var(--r-xl)",
             boxShadow: "0 30px 80px rgba(12,28,54,.22)",
-            display: "grid",
-            gridTemplateColumns: "repeat(4,1fr)",
-            padding: "34px 18px",
+            padding: "28px 32px",
             zIndex: 6,
           }}
         >
-          {homepage.metrics.map(({ value, label }, i) => (
-            <div key={label} style={{ textAlign: "center", padding: "0 18px", borderRight: i < homepage.metrics.length - 1 ? "1px solid var(--line-2)" : "none" }}>
-              <div style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: 46, lineHeight: 1, color: "var(--brand-primary)", marginBottom: 10, letterSpacing: "-0.01em" }}>{value}</div>
-              <div style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--text-muted)" }}>{label}</div>
-            </div>
-          ))}
+          <HeroCourseFinder faculties={faculties.map((f) => f.name)} placeholder={homepage.searchPlaceholder} />
         </div>
       </section>
 
