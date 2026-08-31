@@ -7,10 +7,11 @@ export interface SearchBarProps {
   onSubmit?: (value: string) => void;
   placeholder?: string;
   size?: "md" | "lg";
+  flat?: boolean;
   style?: CSSProperties;
 }
 
-export function SearchBar({ value, onChange, onSubmit, placeholder = "Search courses, programs, people…", size = "md", style }: SearchBarProps) {
+export function SearchBar({ value, onChange, onSubmit, placeholder = "Search courses, programs, people…", size = "md", flat, style }: SearchBarProps) {
   const [foc, setFoc] = useState(false);
   const big = size === "lg";
   return (
@@ -27,7 +28,7 @@ export function SearchBar({ value, onChange, onSubmit, placeholder = "Search cou
         background: "var(--surface-card)",
         border: "1px solid " + (foc ? "var(--accent-teal)" : "var(--line-strong)"),
         borderRadius: "var(--r-pill)",
-        boxShadow: foc ? "var(--ring)" : "var(--sh-1)",
+        boxShadow: foc ? "var(--ring)" : flat ? "none" : "var(--sh-1)",
         transition: "box-shadow var(--dur-fast) var(--ease-out)",
         ...style,
       }}

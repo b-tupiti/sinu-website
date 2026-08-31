@@ -14,7 +14,7 @@ export interface HomepageData {
   heroImage: CMSImage;
   metrics: { value: string; label: string }[];
   pillars: { title: string; body: string }[];
-  centres: { title: string; body: string }[];
+  centres: { title: string; body: string; image: CMSImage }[];
   ctaEyebrow: string;
   ctaTitle: string;
   ctaBody: string;

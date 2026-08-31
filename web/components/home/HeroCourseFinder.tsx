@@ -28,20 +28,10 @@ export function HeroCourseFinder({ faculties, placeholder }: HeroCourseFinderPro
   };
 
   return (
-    <div style={{ display: "grid", gap: 20 }}>
-      <div>
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 500, letterSpacing: ".16em", textTransform: "uppercase", color: "var(--accent-teal)", marginBottom: 8 }}>
-          Course finder
-        </div>
-        <div style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h3)", letterSpacing: "-0.01em", color: "var(--text-heading)" }}>
-          Find your programme
-        </div>
-      </div>
-      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
-        <Select label="Faculty" value={faculty} onChange={(e) => setFaculty(e.target.value)} options={["All faculties", ...faculties]} style={{ minWidth: 200 }} />
-        <Select label="Level" value={level} onChange={(e) => setLevel(e.target.value)} options={LEVELS} style={{ minWidth: 170 }} />
-        <SearchBar value={q} onChange={setQ} onSubmit={submit} placeholder={placeholder} size="lg" style={{ flex: 1, minWidth: 280 }} />
-      </div>
+    <div className="course-finder-row" style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap" }}>
+      <SearchBar value={q} onChange={setQ} onSubmit={submit} placeholder={placeholder} size="lg" flat style={{ flex: 1, minWidth: 280 }} />
+      <Select label="Faculty" value={faculty} onChange={(e) => setFaculty(e.target.value)} options={["All faculties", ...faculties]} style={{ minWidth: 200 }} />
+      <Select label="Level" value={level} onChange={(e) => setLevel(e.target.value)} options={LEVELS} style={{ minWidth: 170 }} />
     </div>
   );
 }

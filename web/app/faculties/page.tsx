@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Breadcrumb } from "@/components/ui/navigation/Breadcrumb";
 import { FacultyRow } from "@/components/home/FacultyRow";
@@ -8,7 +9,12 @@ export default async function FacultiesPage() {
   const faculties = await getFaculties();
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
-      <SiteHeader page="program" />
+      <div className="desktop-only">
+        <SiteHeader page="program" />
+      </div>
+      <div className="mobile-only">
+        <SiteHeaderMobile page="program" />
+      </div>
       <main style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "var(--sp-10) 24px 0" }}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Faculties" }]} style={{ marginBottom: "var(--sp-6)" }} />
         <h1 style={{ margin: "0 0 10px", fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h1)", letterSpacing: "-0.015em", color: "var(--text-heading)" }}>Faculties</h1>

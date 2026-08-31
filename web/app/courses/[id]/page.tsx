@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Badge } from "@/components/ui/feedback/Badge";
 import { Breadcrumb } from "@/components/ui/navigation/Breadcrumb";
@@ -19,7 +20,12 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
 
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
-      <SiteHeader page="catalog" />
+      <div className="desktop-only">
+        <SiteHeader page="catalog" />
+      </div>
+      <div className="mobile-only">
+        <SiteHeaderMobile page="catalog" />
+      </div>
       <main style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "var(--sp-10) 24px 0" }}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Programmes & courses", href: "/courses" }, { label: course.id }]} style={{ marginBottom: "var(--sp-6)" }} />
         <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "var(--sp-10)", alignItems: "start" }}>

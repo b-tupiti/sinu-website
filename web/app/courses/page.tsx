@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SearchBar } from "@/components/ui/forms/SearchBar";
 import { Select } from "@/components/ui/forms/Select";
@@ -59,7 +60,12 @@ function CatalogContent() {
 
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
-      <SiteHeader page="catalog" />
+      <div className="desktop-only">
+        <SiteHeader page="catalog" />
+      </div>
+      <div className="mobile-only">
+        <SiteHeaderMobile page="catalog" />
+      </div>
       <main style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "var(--sp-10) 24px 0" }}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Programmes & courses" }]} style={{ marginBottom: "var(--sp-6)" }} />
         <h1 style={{ margin: "0 0 10px", fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h1)", letterSpacing: "-0.015em", color: "var(--text-heading)" }}>Programmes & courses</h1>
