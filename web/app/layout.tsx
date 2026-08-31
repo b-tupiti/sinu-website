@@ -3,7 +3,8 @@ import "../design-system/styles.css";
 
 export const metadata: Metadata = {
   title: "Solomon Islands National University",
-  description: "The national university of Solomon Islands — courses, programs, admissions, and news.",
+  description:
+    "Solomon Islands National University (SINU) — the nation's leading tertiary institution, offering higher education and research across campuses in the Solomon Islands.",
 };
 
 export default function RootLayout({
