@@ -1,0 +1,95 @@
+:root {
+  /* Brand navy (anchor #1b3a6b) */
+  --navy-900: #0c1c36;
+  --navy-800: #122a4f;
+  --navy-700: #1b3a6b;
+  --navy-600: #27508d;
+  --navy-500: #3968ac;
+  --navy-200: #b9cbe4;
+  --navy-100: #e6edf7;
+
+  /* SINU teal — sampled from the logo mark */
+  --teal-700: #0d7d8f;
+  --teal-600: #189db3;
+  --teal-500: #2fb8cc;
+  --teal-300: #8adbe6;
+  --teal-100: #e2f4f7;
+
+  /* Ceremonial gold — honors, highlights. Use sparingly. */
+  --gold-600: #a8841c;
+  --gold-500: #c9a227;
+  --gold-100: #f6eed3;
+
+  /* Neutrals — white page, cool ink */
+  --paper: #ffffff;
+  --ink-900: #151b26;
+  --ink-700: #38424f;
+  --ink-500: #5e6a7a;
+  --ink-300: #98a2b0;
+  --ink-100: #e6e9ed;
+
+  /* Semantic aliases (light theme) */
+  --bg-page: var(--paper);
+  --surface-card: #ffffff;
+  --surface-sunken: #f4f6f8;
+  --surface-navy: var(--navy-700);
+  --text-heading: var(--ink-900);
+  --text-body: var(--ink-700);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-300);
+  --text-on-navy: #f3f6fb;
+  --brand-primary: var(--navy-700);
+  --brand-primary-strong: var(--navy-800);
+  --brand-primary-tint: var(--navy-100);
+  --accent-teal: var(--teal-500);
+  --accent-teal-strong: var(--teal-600);
+  --accent-teal-tint: var(--teal-100);
+  --accent-gold: var(--gold-500);
+  --accent-gold-tint: var(--gold-100);
+  --link: var(--navy-600);
+  --link-hover: var(--teal-600);
+  --line-1: rgba(21, 27, 38, 0.08);
+  --line-2: rgba(21, 27, 38, 0.14);
+  --line-strong: rgba(21, 27, 38, 0.26);
+  --success: #1e7a4f;
+  --success-tint: #e2f2e9;
+  --warning: #a06e08;
+  --warning-tint: #f8efd8;
+  --danger: #b3362e;
+  --danger-tint: #f9e6e4;
+  --info: var(--teal-600);
+  --info-tint: var(--teal-100);
+}
+
+[data-theme="dark"] {
+  --bg-page: #0c1422;
+  --surface-card: #142032;
+  --surface-sunken: #0f1929;
+  --surface-navy: #12294d;
+  --text-heading: #eef2f9;
+  --text-body: #c3cddc;
+  --text-muted: #8b98ab;
+  --text-faint: #5c687a;
+  --text-on-navy: #f3f6fb;
+  --brand-primary: #7ea4d9;
+  --brand-primary-strong: #a5c1e8;
+  --brand-primary-tint: #1a2c47;
+  --accent-teal: #35c0d4;
+  --accent-teal-strong: #6fd6e5;
+  --accent-teal-tint: #10303a;
+  --accent-gold: #d9b64a;
+  --accent-gold-tint: #33290e;
+  --link: #8fb4e4;
+  --link-hover: #6fd6e5;
+  --line-1: rgba(238, 242, 249, 0.08);
+  --line-2: rgba(238, 242, 249, 0.14);
+  --line-strong: rgba(238, 242, 249, 0.28);
+  --success: #4ec98c;
+  --success-tint: #0f2c1e;
+  --warning: #e0b154;
+  --warning-tint: #2e230c;
+  --danger: #ee7b74;
+  --danger-tint: #3a1613;
+  --info: #35c0d4;
+  --info-tint: #10303a;
+}

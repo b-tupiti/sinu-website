@@ -1,0 +1,22 @@
+<!-- @dsCard group="Components" viewport="700x230" name="Navigation" -->
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);padding:18px 20px;font-family:var(--font-sans)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" data-presets="react">
+const NS=(()=>{for(const k of Object.keys(window)){try{const v=window[k];if(v&&typeof v==='object'&&typeof v.Tabs==='function')return v;}catch(e){}}return {};})();
+const {Button,IconButton,Input,Select,Checkbox,Radio,Switch,SearchBar,Tabs,Breadcrumb,Pagination,Badge,Tag,Toast,Tooltip,Dialog,Card,StatBlock,CourseCard,ProgramCard,EventCard,PersonCard}=NS;
+function Demo(){
+  const [t,setT]=React.useState('Overview');
+  const [p,setP]=React.useState(3);
+  return <div style={{display:'grid',gap:18,maxWidth:640}}>
+    <Breadcrumb items={['Home','Courses',{label:'EDU214'}]}/>
+    <Tabs items={['Overview','Structure','Fees','How to apply']} active={t} onChange={setT}/>
+    <Pagination page={p} pages={12} onChange={setP}/>
+  </div>;}
+if(Object.keys(NS).length){ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);}else{document.getElementById('root').innerHTML='<em style="font:14px sans-serif;color:#98a2b0">component bundle not generated yet — reload once the design system compiles</em>';}
+</script></body></html>

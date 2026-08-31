@@ -1,0 +1,19 @@
+<!-- @dsCard group="Components" viewport="700x220" name="Surfaces" -->
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);padding:18px 20px;font-family:var(--font-sans)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" data-presets="react">
+const NS=(()=>{for(const k of Object.keys(window)){try{const v=window[k];if(v&&typeof v==='object'&&typeof v.Card==='function')return v;}catch(e){}}return {};})();
+const {Button,IconButton,Input,Select,Checkbox,Radio,Switch,SearchBar,Tabs,Breadcrumb,Pagination,Badge,Tag,Toast,Tooltip,Dialog,Card,StatBlock,CourseCard,ProgramCard,EventCard,PersonCard}=NS;
+function Demo(){
+  return <div style={{display:'flex',gap:16,alignItems:'stretch'}}>
+    <Card hover style={{flex:1}}><div style={{fontFamily:'var(--font-serif)',fontSize:19,fontWeight:500,color:'var(--text-heading)',marginBottom:6}}>Hover card</div><div style={{fontSize:14,color:'var(--text-muted)'}}>Shadow raises, hairline darkens.</div></Card>
+    <Card style={{flex:1,display:'flex',gap:28,alignItems:'center'}}><StatBlock value="6,200+" label="Students enrolled"/><StatBlock value="120" label="Programs"/></Card>
+  </div>;}
+if(Object.keys(NS).length){ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);}else{document.getElementById('root').innerHTML='<em style="font:14px sans-serif;color:#98a2b0">component bundle not generated yet — reload once the design system compiles</em>';}
+</script></body></html>

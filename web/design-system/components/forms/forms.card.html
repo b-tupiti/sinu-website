@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Forms" -->
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);padding:18px 20px;font-family:var(--font-sans)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" data-presets="react">
+const NS=(()=>{for(const k of Object.keys(window)){try{const v=window[k];if(v&&typeof v==='object'&&typeof v.Input==='function')return v;}catch(e){}}return {};})();
+const {Button,IconButton,Input,Select,Checkbox,Radio,Switch,SearchBar,Tabs,Breadcrumb,Pagination,Badge,Tag,Toast,Tooltip,Dialog,Card,StatBlock,CourseCard,ProgramCard,EventCard,PersonCard}=NS;
+function Demo(){
+  const [q,setQ]=React.useState('');
+  const [c,setC]=React.useState(true);
+  const [r,setR]=React.useState('s1');
+  const [sw,setSw]=React.useState(false);
+  return <div style={{display:'grid',gap:16,maxWidth:640}}>
+    <SearchBar value={q} onChange={setQ}/>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+      <Input label="Email" placeholder="you@example.com" hint="We reply within 2 days"/>
+      <Select label="School" options={['All schools','Education & Humanities','Nursing & Allied Health','Natural Resources']}/>
+    </div>
+    <div style={{display:'flex',gap:22,alignItems:'center',flexWrap:'wrap'}}>
+      <Checkbox label="Full-time only" checked={c} onChange={setC}/>
+      <Radio label="Semester 1" checked={r==='s1'} onSelect={()=>setR('s1')}/>
+      <Radio label="Semester 2" checked={r==='s2'} onSelect={()=>setR('s2')}/>
+      <Switch label="Dark mode" checked={sw} onChange={setSw}/>
+    </div>
+  </div>;}
+if(Object.keys(NS).length){ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);}else{document.getElementById('root').innerHTML='<em style="font:14px sans-serif;color:#98a2b0">component bundle not generated yet — reload once the design system compiles</em>';}
+</script></body></html>

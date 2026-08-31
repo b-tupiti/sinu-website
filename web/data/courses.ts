@@ -48,6 +48,11 @@ export const mockCourses: Course[] = [
   { id: "LAN401", title: "Master of Applied Linguistics", faculty: "Arts & Humanities", level: "Postgraduate", duration: "2 Years", description: "Advanced studies in language structure, acquisition, and societal use.", tags: ["Linguistics", "Languages", "Postgraduate"] }
 ];
 
+export async function getCourseById(id: string): Promise<Course | undefined> {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return mockCourses.find((course) => course.id.toLowerCase() === id.toLowerCase());
+}
+
 export async function searchCourses(query: string, levelFilter: string = "All"): Promise<Course[]> {
   // Simulate network delay to mimic a real backend
   await new Promise(resolve => setTimeout(resolve, 600 + Math.random() * 400));
