@@ -1,0 +1,23 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Catalog objects" -->
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);padding:18px 20px;font-family:var(--font-sans)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" data-presets="react">
+const NS=(()=>{for(const k of Object.keys(window)){try{const v=window[k];if(v&&typeof v==='object'&&typeof v.CourseCard==='function')return v;}catch(e){}}return {};})();
+const {Button,IconButton,Input,Select,Checkbox,Radio,Switch,SearchBar,Tabs,Breadcrumb,Pagination,Badge,Tag,Toast,Tooltip,Dialog,Card,StatBlock,CourseCard,ProgramCard,EventCard,PersonCard}=NS;
+function Demo(){
+  return <div style={{display:'grid',gap:14,maxWidth:660}}>
+    <CourseCard code="EDU214" title="Curriculum design in the Pacific context" school="Education & Humanities" credits={12} semester="Sem 1" level="Bachelor" onClick={()=>{}}/>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+      <EventCard day={14} month="Oct" title="Open day — Kukum campus" time="9:00–15:00" location="Honiara" tag="Admissions" onClick={()=>{}}/>
+      <PersonCard name="Dr. Mere Vuki" role="Senior lecturer" school="Nursing" email="m.vuki@sinu.edu.sb" onClick={()=>{}}/>
+    </div>
+    <ProgramCard title="Bachelor of Nursing" school="Nursing & Allied Health" level="Bachelor" duration="4 years" intake="Feb 2027" featured onClick={()=>{}}/>
+  </div>;}
+if(Object.keys(NS).length){ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);}else{document.getElementById('root').innerHTML='<em style="font:14px sans-serif;color:#98a2b0">component bundle not generated yet — reload once the design system compiles</em>';}
+</script></body></html>

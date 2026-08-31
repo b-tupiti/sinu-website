@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>SINU — Home (full screen)</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=Spline+Sans+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b3a6b;--navy-deep:#122a4f;--navy-ink:#0c1c36;--teal:#2fb8cc;--paper:#f6f6f3;--ink:#16202e;--mut:#5d6a7c;--line:rgba(255,255,255,.16)}
+*{box-sizing:border-box}body{margin:0;font-family:'Instrument Sans',sans-serif;background:var(--paper);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(120% 90% at 70% -10%,var(--navy) 0%,var(--navy-deep) 55%,var(--navy-ink) 100%);color:#fff}
+.nav{display:flex;align-items:center;gap:30px;padding:22px 48px}
+.nav img{height:42px;background:#fff;padding:4px 8px;border-radius:8px}
+.nav a{font-size:15px;font-weight:500;color:rgba(255,255,255,.78)}
+.nav a.on{color:#fff;font-weight:600}
+.nav .apply{margin-left:auto;background:#fff;color:var(--navy);font-weight:600;padding:11px 24px;border-radius:999px;transition:transform .15s}
+.nav .apply:hover{transform:translateY(-1px)}
+.center{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 24px 120px}
+.eyebrow{font:500 12.5px 'Spline Sans Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(56px,7.5vw,96px);line-height:1.02;letter-spacing:-.015em;margin:0 0 22px;max-width:14ch}
+h1 em{color:var(--teal)}
+.lead{font-size:18px;line-height:1.6;color:rgba(255,255,255,.72);max-width:520px;margin:0 0 38px}
+.search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:6px 6px 6px 22px;width:min(600px,90vw);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.search svg{flex:none;stroke:#8a94a4}
+.search input{flex:1;border:0;outline:0;font:500 16px 'Instrument Sans',sans-serif;color:var(--ink);background:transparent}
+.search button{border:0;background:var(--navy);color:#fff;font:600 15px 'Instrument Sans',sans-serif;padding:13px 28px;border-radius:999px;cursor:pointer}
+.search button:hover{background:var(--navy-deep)}
+.quick{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.quick a{font-size:13.5px;font-weight:500;color:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:999px;padding:8px 16px}
+.quick a:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.metrics{position:absolute;left:50%;bottom:-64px;transform:translateX(-50%);width:min(1060px,92vw);background:#fff;border-radius:20px;box-shadow:0 30px 80px rgba(12,28,54,.25);display:grid;grid-template-columns:repeat(4,1fr);padding:34px 18px;z-index:5}
+.metric{text-align:center;padding:0 18px;border-right:1px solid #e8e9e6}
+.metric:last-child{border-right:0}
+.metric b{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:1;color:var(--navy);margin-bottom:8px}
+.metric span{font-size:13.5px;color:var(--mut)}
+.scroll{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.4);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.after{padding:140px 48px 90px;max-width:1160px;margin:0 auto}
+.after h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:40px;margin:0 0 10px;letter-spacing:-.01em}
+.after p{color:var(--mut);margin:0 0 34px;font-size:16px}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid #e6e7e3;border-radius:16px;padding:26px;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 14px 36px rgba(12,28,54,.1);transform:translateY(-2px)}
+.card .code{font:500 13px 'Spline Sans Mono',monospace;color:#0d7d8f;background:#e2f4f7;padding:3px 10px;border-radius:999px}
+.card h3{font-size:19px;font-weight:600;line-height:1.3;margin:16px 0 8px}
+.card .meta{font-size:13.5px;color:var(--mut)}
+</style></head><body>
+<section class="hero">
+  <nav class="nav">
+    <img src="../assets/sinu-logo.jpg" alt="SINU">
+    <a class="on" href="#">Home</a><a href="#">Courses</a><a href="#">Programs</a><a href="#">Admissions</a><a href="#">Events</a><a href="#">Directory</a>
+    <a class="apply" href="#">Apply now</a>
+  </nav>
+  <div class="center">
+    <div class="eyebrow">Solomon Islands National University</div>
+    <h1>Learn where <em>you belong.</em></h1>
+    <p class="lead">120 programs across six schools — from certificates to postgraduate study, in Honiara and nine provincial campuses.</p>
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input placeholder="Search courses, programs, people…">
+      <button>Search</button>
+    </div>
+    <div class="quick"><a href="#">Course catalog</a><a href="#">How to apply</a><a href="#">Scholarships</a><a href="#">Semester dates</a></div>
+  </div>
+  <div class="metrics">
+    <div class="metric"><b>6,200+</b><span>Students enrolled</span></div>
+    <div class="metric"><b>120</b><span>Programs offered</span></div>
+    <div class="metric"><b>6</b><span>Schools &amp; faculties</span></div>
+    <div class="metric"><b>9</b><span>Provincial campuses</span></div>
+  </div>
+</section>
+<section class="after">
+  <h2>Featured this semester</h2>
+  <p>Courses open for Semester 1, 2027 enrolment.</p>
+  <div class="row">
+    <div class="card"><span class="code">MAR312</span><h3>Coastal fisheries and marine ecology</h3><div class="meta">Natural Resources · 15 credits · Sem 2</div></div>
+    <div class="card"><span class="code">EDU214</span><h3>Curriculum design in the Pacific context</h3><div class="meta">Education &amp; Humanities · 12 credits · Sem 1</div></div>
+    <div class="card"><span class="code">NUR105</span><h3>Foundations of nursing practice</h3><div class="meta">Nursing &amp; Allied Health · 12 credits · Sem 1</div></div>
+  </div>
+</section>
+</body></html>

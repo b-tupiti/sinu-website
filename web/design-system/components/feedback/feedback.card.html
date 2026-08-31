@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Feedback" -->
+<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);padding:18px 20px;font-family:var(--font-sans)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" data-presets="react">
+const NS=(()=>{for(const k of Object.keys(window)){try{const v=window[k];if(v&&typeof v==='object'&&typeof v.Badge==='function')return v;}catch(e){}}return {};})();
+const {Button,IconButton,Input,Select,Checkbox,Radio,Switch,SearchBar,Tabs,Breadcrumb,Pagination,Badge,Tag,Toast,Tooltip,Dialog,Card,StatBlock,CourseCard,ProgramCard,EventCard,PersonCard}=NS;
+function Demo(){
+  const [d,setD]=React.useState(false);
+  return <div style={{display:'grid',gap:16}}>
+    <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+      <Badge tone="success">Open for enrolment</Badge>
+      <Badge tone="info">Semester 1</Badge>
+      <Badge tone="warning">Few places left</Badge>
+      <Badge tone="danger">Closed</Badge>
+      <Badge tone="gold">Featured</Badge>
+      <Badge>12 credits</Badge>
+    </div>
+    <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+      <Tag active onClick={()=>{}}>Bachelor</Tag>
+      <Tag onClick={()=>{}}>Diploma</Tag>
+      <Tag onClick={()=>{}}>Certificate</Tag>
+      <Tooltip label="Credits required"><Tag>12 cr</Tag></Tooltip>
+    </div>
+    <Toast tone="success" onDismiss={()=>{}}>Application submitted. We'll email you a receipt.</Toast>
+  </div>;}
+if(Object.keys(NS).length){ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);}else{document.getElementById('root').innerHTML='<em style="font:14px sans-serif;color:#98a2b0">component bundle not generated yet — reload once the design system compiles</em>';}
+</script></body></html>
