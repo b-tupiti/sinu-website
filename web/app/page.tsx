@@ -54,14 +54,11 @@ export default async function Home() {
               marginLeft: "max(24px, calc((100vw - var(--container)) / 2))",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 26 }}>
-              <span style={{ width: 34, height: 1, background: "var(--accent-teal)", flex: "none" }} />
-              <span style={{ fontFamily: "var(--font-sans)", fontSize: 11.5, fontWeight: 600, letterSpacing: ".2em", textTransform: "uppercase", color: "var(--teal-300)" }}>{homepage.eyebrow}</span>
-            </div>
+            
             <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: "clamp(42px, 4.6vw, 64px)", lineHeight: 1.06, letterSpacing: "-0.02em", margin: "0 0 24px" }}>{homepage.title}</h1>
             <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, fontSize: 20, lineHeight: 1.5, color: "rgba(255,255,255,.8)", margin: "0 0 26px" }}>{homepage.lead}</p>
-            <div style={{ height: 1, background: "rgba(255,255,255,.14)", marginBottom: 26 }} />
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "rgba(255,255,255,.7)", margin: "0 0 30px" }}>{homepage.intro}</p>
+            {/* <div style={{ height: 1, background: "rgba(255,255,255,.14)", marginBottom: 26 }} />
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: 1.7, color: "rgba(255,255,255,.7)", margin: "0 0 30px" }}>{homepage.intro}</p> */}
             <HeroSearch placeholder={homepage.searchPlaceholder} />
             <div style={{ display: "flex", gap: 26, alignItems: "center", flexWrap: "wrap" }}>
               <Link
@@ -162,34 +159,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section style={{ ...wrap, paddingTop: "var(--sp-16)", display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "var(--sp-10)" }}>
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--sp-5)" }}>
-            <h2 style={h2}>Upcoming events</h2>
-            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none" }}>
-              All events →
-            </Link>
-          </div>
-          <EventsPreview events={events} />
-        </div>
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--sp-5)" }}>
-            <h2 style={h2}>News & announcements</h2>
-            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none" }}>
-              All news →
-            </Link>
-          </div>
-          <div style={{ display: "grid" }}>
-            {news.map((n) => (
-              <Link key={n.id} href="/events" style={{ display: "grid", gap: 3, padding: "14px 0", borderBottom: "1px solid var(--line-2)", textDecoration: "none" }}>
-                <span style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 16, color: "var(--text-heading)" }}>{n.title}</span>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--text-faint)" }}>{n.date}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section style={{ position: "relative", marginTop: "var(--sp-20)", minHeight: 340, display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "var(--navy-900)", zIndex: 0 }} />
         <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: "46%", zIndex: 1 }}>
@@ -215,6 +184,34 @@ export default async function Home() {
                 Browse courses
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ ...wrap, paddingTop: "var(--sp-16)", display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "var(--sp-10)" }}>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--sp-5)" }}>
+            <h2 style={h2}>Upcoming events</h2>
+            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none" }}>
+              All events →
+            </Link>
+          </div>
+          <EventsPreview events={events} />
+        </div>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--sp-5)" }}>
+            <h2 style={h2}>News & announcements</h2>
+            <Link href="/events" style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 600, color: "var(--link)", textDecoration: "none" }}>
+              All news →
+            </Link>
+          </div>
+          <div style={{ display: "grid" }}>
+            {news.map((n) => (
+              <Link key={n.id} href="/events" style={{ display: "grid", gap: 3, padding: "14px 0", borderBottom: "1px solid var(--line-2)", textDecoration: "none" }}>
+                <span style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 16, color: "var(--text-heading)" }}>{n.title}</span>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--text-faint)" }}>{n.date}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
