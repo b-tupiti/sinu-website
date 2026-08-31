@@ -1,0 +1,115 @@
+/* Responsive utilities and homepage overrides.
+ * Breakpoint: 768px (below = mobile, at/above = desktop).
+ * Uses !important sparingly to override inline styles set in JSX.
+ */
+
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+@media (max-width: 767px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+
+  /* Hero copy: reduce padding, cap width, adjust type scale */
+  .hero-content {
+    padding: var(--sp-10) 20px 120px !important;
+    max-width: 100% !important;
+  }
+  .hero-content h1 {
+    font-size: clamp(30px, 8vw, 42px) !important;
+    margin-bottom: 16px !important;
+  }
+  .hero-content .hero-lead {
+    font-size: 16px !important;
+    margin-bottom: 20px !important;
+  }
+  .hero-cta {
+    padding: 13px 26px !important;
+    font-size: 15px !important;
+  }
+
+  /* Course finder card + inner controls: stack vertically */
+  .course-finder-card {
+    padding: 16px 16px !important;
+    bottom: -140px !important;
+  }
+  .course-finder-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .course-finder-row > * {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Announcement bar: keep on-screen and drop the secondary link */
+  .hero-announcement {
+    bottom: 24px !important;
+    padding: 10px 16px !important;
+    gap: 10px !important;
+    border-radius: var(--r-lg) !important;
+  }
+  .hero-announcement-secondary,
+  .hero-announcement-divider {
+    display: none !important;
+  }
+
+  /* Faculties / Centres carousels: narrower cards */
+  .carousel-card {
+    flex: 0 0 260px !important;
+  }
+
+  /* Faculty section: less huge top gap since finder card takes more space */
+  .faculties-section {
+    margin-top: 190px !important;
+  }
+  .section-header {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Events section: single column, intro no longer sticky */
+  .events-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--sp-8) !important;
+  }
+  .events-intro {
+    position: static !important;
+  }
+  .events-intro h2,
+  .news-heading {
+    font-size: clamp(30px, 7vw, 40px) !important;
+  }
+
+  /* CTA section: text-only, hide the image split */
+  .cta-section {
+    min-height: auto !important;
+  }
+  .cta-section .cta-image,
+  .cta-section .cta-image-fade {
+    display: none !important;
+  }
+  .cta-section .cta-content {
+    max-width: 100% !important;
+  }
+
+  /* Footer: single column, tighter padding */
+  .footer-root {
+    min-height: auto !important;
+  }
+  .footer-top-row {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .footer-cols {
+    grid-template-columns: 1fr 1fr !important;
+    gap: var(--sp-6) !important;
+  }
+  .footer-bottom-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+}

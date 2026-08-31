@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Breadcrumb } from "@/components/ui/navigation/Breadcrumb";
 import { Card } from "@/components/ui/surfaces/Card";
@@ -23,7 +24,12 @@ export default async function FacultyPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
-      <SiteHeader page="program" />
+      <div className="desktop-only">
+        <SiteHeader page="program" />
+      </div>
+      <div className="mobile-only">
+        <SiteHeaderMobile page="program" />
+      </div>
       <section style={{ position: "relative", background: "var(--surface-navy)", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Image src={faculty.heroImage.url} alt={faculty.heroImage.alt} fill sizes="100vw" style={{ objectFit: "cover", opacity: 0.28 }} />

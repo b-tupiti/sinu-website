@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export type SiteHeaderPage = "home" | "program" | "catalog" | "admissions" | "events" | "directory";
+export type SiteHeaderPage = "home" | "about" | "program" | "catalog" | "admissions" | "events" | "directory";
 
 export interface SiteHeaderProps {
   page: SiteHeaderPage;
@@ -17,14 +17,12 @@ interface NavItem {
   mega?: boolean;
 }
 
-// Keeps the primary nav to 4 items — everything else (About, Library, the
-// old Students submenu) either lives on the homepage already or has no
-// dedicated page yet, so it isn't worth a top-level slot.
 const NAV: NavItem[] = [
   { label: "Academics", href: "/faculties", id: "program", mega: true },
   { label: "Admissions", href: "/admissions", id: "admissions" },
   { label: "News & events", href: "/events", id: "events" },
   { label: "Directory", href: "/directory", id: "directory" },
+  { label: "About", href: "/about", id: "about", mega: true },
 ];
 
 const QUICK: [string, string][] = [
@@ -46,6 +44,24 @@ const FACULTY_LINKS = [
   { abbr: "FAH", name: "Arts & Humanities", slug: "arts-humanities" },
 ];
 
+const ABOUT_PRIMARY: [string, string][] = [
+  ["History of SINU", "/about#history"],
+  ["Executive governance", "/about#governance"],
+  ["Office of the Vice Chancellor", "/about#vice-chancellor"],
+  ["Careers", "/about#careers"],
+  ["Contact us", "/about#contact"],
+];
+
+const CORPORATE_DEPTS: [string, string][] = [
+  ["Finance", "/about#finance"],
+  ["Human Resources", "/about#hr"],
+  ["ICT Services", "/about#ict"],
+  ["Registrar", "/about#registrar"],
+  ["Property & Facilities", "/about#facilities"],
+  ["Communications", "/about#communications"],
+  ["Research Office", "/about#research"],
+];
+
 export function SiteHeader({ page, dark }: SiteHeaderProps) {
   const [open, setOpen] = useState<string | null>(null);
   const wrapperRef = useRef<HTMLElement>(null);
@@ -60,12 +76,14 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
   }, [open]);
 
   const linkColor = (on: boolean) => (dark ? (on ? "#fff" : "rgba(255,255,255,.78)") : on ? "var(--text-heading)" : "var(--text-body)");
-  const barBg = dark ? "rgba(255,255,255,.06)" : "var(--navy-800)";
+  const barBg = dark ? "transparent" : "var(--surface-card)";
+  const topbarText = dark ? "rgba(243,246,251,.82)" : "var(--text-muted)";
   const isActive = (it: NavItem) => page === it.id || (it.id === "program" && page === "catalog");
+  const activeMega = NAV.find((it) => it.mega && it.label === open);
 
   return (
     <header ref={wrapperRef} style={dark ? { position: "relative", zIndex: 50 } : { position: "sticky", top: 0, zIndex: 50 }} onMouseLeave={() => setOpen(null)}>
-      <div style={{ background: barBg, borderBottom: dark ? "1px solid rgba(255,255,255,.1)" : "none" }}>
+      <div style={{ background: barBg, borderBottom: dark ? "1px solid rgba(255,255,255,.1)" : "1px solid var(--line-1)" }}>
         <div
           style={{
             maxWidth: "var(--container)",
@@ -77,7 +95,7 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
             flexWrap: "wrap",
             fontFamily: "var(--font-sans)",
             fontSize: 12.5,
-            color: "rgba(243,246,251,.82)",
+            color: topbarText,
           }}
         >
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -96,27 +114,6 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
           </nav>
         </div>
       </div>
-      <div style={{ background: dark ? "rgba(255,255,255,.04)" : "var(--accent-teal-tint)", borderBottom: dark ? "1px solid rgba(255,255,255,.1)" : "1px solid var(--line-1)" }}>
-        <div style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "9px 24px", display: "flex", alignItems: "center", gap: 12, fontFamily: "var(--font-sans)", fontSize: 13.5 }}>
-          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".14em", textTransform: "uppercase", color: dark ? "var(--teal-300)" : "var(--teal-700)", whiteSpace: "nowrap" }}>
-            Announcements
-          </span>
-          <Link href="/events" style={{ color: dark ? "#fff" : "var(--text-heading)", textDecoration: "none", fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-            SINU 2026 Open Day programme
-          </Link>
-          <span style={{ color: dark ? "rgba(255,255,255,.35)" : "var(--text-faint)" }}>·</span>
-          <Link
-            href="/admissions"
-            style={{ color: dark ? "rgba(255,255,255,.78)" : "var(--text-body)", textDecoration: "none", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
-          >
-            Scholarship application — submission of required documents
-          </Link>
-          <span style={{ flex: 1 }} />
-          <Link href="/events" style={{ color: dark ? "var(--teal-300)" : "var(--teal-700)", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}>
-            All announcements →
-          </Link>
-        </div>
-      </div>
       <div style={{ background: dark ? "transparent" : "var(--surface-card)", borderBottom: dark ? "1px solid rgba(255,255,255,.12)" : "1px solid var(--line-2)" }}>
         <div style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 22 }}>
           <Link href="/" style={{ display: "inline-flex", flex: "none" }}>
@@ -129,11 +126,11 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
               priority
             />
           </Link>
-          <nav style={{ display: "flex", gap: 2, flex: 1, flexWrap: "wrap" }}>
+          <nav style={{ display: "flex", gap: 2, flex: 1, flexWrap: "wrap", justifyContent: "flex-end" }}>
             {NAV.map((it) => {
               const on = isActive(it);
               return (
-                <span key={it.label} style={{ position: "relative" }} onMouseEnter={() => setOpen(it.mega ? it.label : null)}>
+                <span key={it.label} onMouseEnter={() => setOpen(it.mega ? it.label : null)}>
                   <Link
                     href={it.href}
                     style={{
@@ -158,117 +155,157 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
                       </svg>
                     )}
                   </Link>
-                  {it.mega && open === it.label && (
-                    <div
-                      role="menu"
-                      style={{
-                        position: "absolute",
-                        top: "calc(100% + 10px)",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        width: "min(760px, 84vw)",
-                        background: "var(--surface-card)",
-                        border: "1px solid var(--line-2)",
-                        borderRadius: "var(--r-xl)",
-                        boxShadow: "var(--sh-3)",
-                        padding: "28px",
-                        zIndex: 60,
-                        display: "grid",
-                        gridTemplateColumns: "1.3fr 1fr 1fr",
-                        gap: 28,
-                      }}
-                    >
-                      <div>
-                        <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
-                          Faculties
-                        </div>
-                        <div style={{ display: "grid", gap: 4 }}>
-                          {FACULTY_LINKS.map((f) => (
-                            <Link
-                              key={f.slug}
-                              href={`/faculty/${f.slug}`}
-                              onClick={() => setOpen(null)}
-                              style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", borderRadius: "var(--r-sm)", textDecoration: "none" }}
-                            >
-                              <span
-                                style={{
-                                  fontFamily: "var(--font-mono)",
-                                  fontSize: 11.5,
-                                  fontWeight: 500,
-                                  color: "var(--teal-700)",
-                                  background: "var(--accent-teal-tint)",
-                                  padding: "2px 7px",
-                                  borderRadius: "var(--r-sm)",
-                                  flex: "none",
-                                }}
-                              >
-                                {f.abbr}
-                              </span>
-                              <span style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 500, color: "var(--text-body)" }}>{f.name}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
-                          Explore
-                        </div>
-                        <div style={{ display: "grid", gap: 4 }}>
-                          {[
-                            ["All faculties", "/faculties"],
-                            ["Programmes & courses", "/courses"],
-                            ["Staff directory", "/directory"],
-                          ].map(([label, href]) => (
-                            <Link
-                              key={label}
-                              href={href}
-                              onClick={() => setOpen(null)}
-                              style={{ padding: "8px 10px", borderRadius: "var(--r-sm)", fontFamily: "var(--font-sans)", fontSize: 14.5, color: "var(--text-body)", textDecoration: "none" }}
-                            >
-                              {label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                      <div style={{ background: "var(--brand-primary)", borderRadius: "var(--r-lg)", padding: "20px", display: "grid", gap: 10, alignContent: "start" }}>
-                        <div style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 19, lineHeight: 1.25, color: "var(--text-on-navy)" }}>Applications close 28 Nov 2026</div>
-                        <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13, lineHeight: 1.55, color: "rgba(243,246,251,.78)" }}>Semester 1, 2027 intake — start your application today.</p>
-                        <Link
-                          href="/admissions"
-                          onClick={() => setOpen(null)}
-                          style={{ marginTop: 6, display: "inline-flex", width: "fit-content", background: "#fff", color: "var(--navy-800)", fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 13.5, padding: "9px 16px", borderRadius: "var(--r-pill)", textDecoration: "none" }}
-                        >
-                          Apply now
-                        </Link>
-                      </div>
-                    </div>
-                  )}
                 </span>
               );
             })}
           </nav>
-          <Link
-            href="/admissions"
-            style={{
-              border: "none",
-              cursor: "pointer",
-              background: dark ? "#fff" : "var(--brand-primary)",
-              color: dark ? "var(--navy-800)" : "#fff",
-              fontFamily: "var(--font-sans)",
-              fontWeight: 600,
-              fontSize: 14.5,
-              padding: "11px 24px",
-              borderRadius: "var(--r-pill)",
-              whiteSpace: "nowrap",
-              flex: "none",
-              textDecoration: "none",
-              display: "inline-flex",
-            }}
-          >
-            Apply now
-          </Link>
         </div>
       </div>
+      {activeMega && (
+        <div
+          role="menu"
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            background: "var(--surface-card)",
+            borderTop: "1px solid var(--line-2)",
+            borderBottom: "1px solid var(--line-2)",
+            boxShadow: "var(--sh-3)",
+            zIndex: 60,
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "var(--container)",
+              margin: "0 auto",
+              padding: "32px 24px",
+              display: "grid",
+              gridTemplateColumns: "1.3fr 1fr 1fr",
+              gap: 40,
+            }}
+          >
+            {activeMega.label === "Academics" && (
+              <>
+                <div>
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
+                    Faculties
+                  </div>
+                  <div style={{ display: "grid", gap: 4 }}>
+                    {FACULTY_LINKS.map((f) => (
+                      <Link
+                        key={f.slug}
+                        href={`/faculty/${f.slug}`}
+                        onClick={() => setOpen(null)}
+                        style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", borderRadius: "var(--r-sm)", textDecoration: "none" }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 11.5,
+                            fontWeight: 500,
+                            color: "var(--teal-700)",
+                            background: "var(--accent-teal-tint)",
+                            padding: "2px 7px",
+                            borderRadius: "var(--r-sm)",
+                            flex: "none",
+                          }}
+                        >
+                          {f.abbr}
+                        </span>
+                        <span style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 500, color: "var(--text-body)" }}>{f.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
+                    Explore
+                  </div>
+                  <div style={{ display: "grid", gap: 4 }}>
+                    {[
+                      ["All faculties", "/faculties"],
+                      ["Programmes & courses", "/courses"],
+                      ["Staff directory", "/directory"],
+                    ].map(([label, href]) => (
+                      <Link
+                        key={label}
+                        href={href}
+                        onClick={() => setOpen(null)}
+                        style={{ padding: "8px 10px", borderRadius: "var(--r-sm)", fontFamily: "var(--font-sans)", fontSize: 14.5, color: "var(--text-body)", textDecoration: "none" }}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ background: "var(--brand-primary)", borderRadius: "var(--r-lg)", padding: "20px", display: "grid", gap: 10, alignContent: "start" }}>
+                  <div style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 19, lineHeight: 1.25, color: "var(--text-on-navy)" }}>Applications close 28 Nov 2026</div>
+                  <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13, lineHeight: 1.55, color: "rgba(243,246,251,.78)" }}>Semester 1, 2027 intake — start your application today.</p>
+                  <Link
+                    href="/admissions"
+                    onClick={() => setOpen(null)}
+                    style={{ marginTop: 6, display: "inline-flex", width: "fit-content", background: "#fff", color: "var(--navy-800)", fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 13.5, padding: "9px 16px", borderRadius: "var(--r-pill)", textDecoration: "none" }}
+                  >
+                    Apply now
+                  </Link>
+                </div>
+              </>
+            )}
+            {activeMega.label === "About" && (
+              <>
+                <div>
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
+                    The university
+                  </div>
+                  <div style={{ display: "grid", gap: 4 }}>
+                    {ABOUT_PRIMARY.map(([label, href]) => (
+                      <Link
+                        key={label}
+                        href={href}
+                        onClick={() => setOpen(null)}
+                        style={{ padding: "8px 10px", borderRadius: "var(--r-sm)", fontFamily: "var(--font-sans)", fontSize: 14.5, fontWeight: 500, color: "var(--text-body)", textDecoration: "none" }}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "var(--t-eyebrow)", fontWeight: 600, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
+                    Corporate departments
+                  </div>
+                  <div style={{ display: "grid", gap: 4 }}>
+                    {CORPORATE_DEPTS.map(([label, href]) => (
+                      <Link
+                        key={label}
+                        href={href}
+                        onClick={() => setOpen(null)}
+                        style={{ padding: "8px 10px", borderRadius: "var(--r-sm)", fontFamily: "var(--font-sans)", fontSize: 14.5, color: "var(--text-body)", textDecoration: "none" }}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ background: "var(--accent-teal-tint)", borderRadius: "var(--r-lg)", padding: "20px", display: "grid", gap: 10, alignContent: "start" }}>
+                  <div style={{ fontFamily: "var(--font-mono)", fontWeight: 500, fontSize: 11.5, letterSpacing: ".16em", textTransform: "uppercase", color: "var(--teal-700)" }}>Est. 2013</div>
+                  <div style={{ fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: 19, lineHeight: 1.25, color: "var(--text-heading)" }}>One national university, five faculties.</div>
+                  <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13, lineHeight: 1.55, color: "var(--text-body)" }}>Serving Solomon Islands with teaching, research, and community engagement.</p>
+                  <Link
+                    href="/about"
+                    onClick={() => setOpen(null)}
+                    style={{ marginTop: 6, display: "inline-flex", width: "fit-content", fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 13.5, color: "var(--teal-700)", textDecoration: "none" }}
+                  >
+                    More about SINU →
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
