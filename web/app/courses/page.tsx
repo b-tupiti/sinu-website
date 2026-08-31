@@ -27,8 +27,14 @@ function CatalogContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
-  const [level, setLevel] = useState("All");
-  const [faculty, setFaculty] = useState("All faculties");
+  const [level, setLevel] = useState(() => {
+    const l = searchParams.get("level");
+    return l && LEVELS.includes(l) ? l : "All";
+  });
+  const [faculty, setFaculty] = useState(() => {
+    const f = searchParams.get("faculty");
+    return f && FACULTIES.includes(f) ? f : "All faculties";
+  });
   const [page, setPage] = useState(1);
   const [courses, setCourses] = useState<Course[]>([]);
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
