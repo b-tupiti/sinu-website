@@ -31,8 +31,8 @@ export async function getHomepage(): Promise<HomepageData> {
       "Five faculties and study from certificate to postgraduate level — in Honiara and through distance and flexible learning.",
     searchPlaceholder: "Search courses and programs…",
     heroImage: {
-      url: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=2000&q=85&auto=format&fit=crop",
-      alt: "graduates celebrating at commencement",
+      url: "/fff-1024x775.jpg",
+      alt: "Solomon Islands National University campus",
     },
     metrics: [
       { value: "5", label: "Faculties" },
