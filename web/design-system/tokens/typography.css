@@ -1,0 +1,23 @@
+:root {
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Spline Sans Mono", "SF Mono", monospace;
+
+  --t-display: 72px;   /* serif 500, lh 1.05, ls -0.02em */
+  --t-h1: 44px;        /* serif 500, lh 1.1,  ls -0.015em */
+  --t-h2: 36px;        /* serif 500, lh 1.15, ls -0.01em */
+  --t-h3: 24px;        /* serif 500, lh 1.25 */
+  --t-h4: 19px;        /* sans 600,  lh 1.35 */
+  --t-lead: 19px;      /* sans 400,  lh 1.55 */
+  --t-body: 16px;      /* sans 400,  lh 1.6 */
+  --t-sm: 14px;
+  --t-xs: 12.5px;
+  --t-eyebrow: 12px;   /* sans 600, uppercase, ls +0.12em */
+  --t-code: 13.5px;    /* mono 500 — course codes, credit counts */
+
+  --lh-tight: 1.1;
+  --lh-heading: 1.25;
+  --lh-body: 1.6;
+  --ls-display: -0.02em;
+  --ls-eyebrow: 0.12em;
+}

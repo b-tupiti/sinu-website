@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Direction A — Lagoon & Sun</title>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ocean:#0d4f5c;--ocean-deep:#083840;--lagoon:#1a9cb0;--sun:#f2b422;--coral:#e8604c;--sand:#f5efe3;--sand-2:#ece3d0;--ink:#1c2a2e;--mut:#5c6f74}
+*{box-sizing:border-box}body{margin:0;background:var(--sand);color:var(--ink);font-family:'Schibsted Grotesk',sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+.band{height:10px;background:repeating-linear-gradient(45deg,var(--sun) 0 14px,var(--ocean) 14px 28px)}
+header{background:var(--sand);border-bottom:2px solid var(--ink)}
+.nav{display:flex;align-items:center;gap:26px;padding:16px 0}
+.nav img{height:42px;background:#fff;padding:4px 8px;border-radius:6px}
+.nav a{font-weight:600;font-size:15px;color:var(--ink);text-decoration:none}
+.nav a.on{color:var(--ocean);box-shadow:0 3px 0 var(--sun)}
+.apply{margin-left:auto;background:var(--sun);color:var(--ink);font-weight:800;padding:11px 22px;border-radius:0;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-size:15px;text-decoration:none}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;padding:72px 0 64px;align-items:center}
+h1{font-family:'Young Serif',serif;font-size:74px;line-height:.98;margin:0 0 22px;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--ocean)}
+.lead{font-size:19px;line-height:1.55;color:var(--mut);max-width:460px;margin:0 0 30px}
+.search{display:flex;border:2px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--ocean)}
+.search input{flex:1;border:0;outline:0;padding:16px 18px;font:500 16px 'Schibsted Grotesk',sans-serif;background:transparent}
+.search button{border:0;background:var(--ocean);color:#fff;font:700 15px 'Schibsted Grotesk',sans-serif;padding:0 26px;cursor:pointer}
+.sun-card{background:var(--ocean);color:#fff;padding:34px;position:relative}
+.sun-card::after{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(242,180,34,.55);pointer-events:none}
+.sun-card .k{font:500 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--sun)}
+.sun-card h3{font-family:'Young Serif',serif;font-size:26px;margin:10px 0 8px}
+.sun-card p{margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.78)}
+.stats{background:var(--ink);color:var(--sand)}
+.stats .wrap{display:flex;justify-content:space-between;padding:34px 28px;gap:30px;flex-wrap:wrap}
+.stat b{display:block;font-family:'Young Serif',serif;font-size:42px;color:var(--sun)}
+.stat span{font-size:13.5px;color:rgba(245,239,227,.7)}
+.sec{padding:64px 0 20px}
+.sec h2{font-family:'Young Serif',serif;font-size:38px;margin:0 0 26px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink)}
+.course{background:#fff;padding:26px;border-right:2px solid var(--ink)}
+.course:last-child{border-right:0}
+.course .code{font:500 13px 'IBM Plex Mono',monospace;background:var(--sand-2);padding:4px 10px;display:inline-block}
+.course h3{font-family:'Young Serif',serif;font-size:21px;line-height:1.25;margin:14px 0 10px}
+.course .meta{font-size:13.5px;color:var(--mut)}
+.course:hover{background:var(--sand-2)}
+</style></head><body>
+<div class="band"></div>
+<header><div class="wrap nav">
+<img src="../assets/sinu-logo.jpg" alt="SINU">
+<a class="on" href="#">Home</a><a href="#">Courses</a><a href="#">Programs</a><a href="#">Admissions</a><a href="#">Events</a>
+<a class="apply" href="#">Apply now</a>
+</div></header>
+<div class="wrap hero">
+<div>
+<h1>The university of <em>these islands.</em></h1>
+<p class="lead">120 programs across six schools — taught in Honiara and nine provincial campuses, for the people of Solomon Islands.</p>
+<div class="search"><input placeholder="Search courses, programs, people…"><button>Search</button></div>
+</div>
+<div class="sun-card">
+<span class="k">Semester 1 · 2027</span>
+<h3>Applications close 28 Nov</h3>
+<p>School leavers and mature entry welcome. The online form takes about 20 minutes — save and come back anytime.</p>
+</div>
+</div>
+<div class="stats"><div class="wrap">
+<div class="stat"><b>6,200+</b><span>Students enrolled</span></div>
+<div class="stat"><b>120</b><span>Programs offered</span></div>
+<div class="stat"><b>6</b><span>Schools & faculties</span></div>
+<div class="stat"><b>9</b><span>Provincial campuses</span></div>
+</div></div>
+<div class="wrap sec">
+<h2>Featured courses</h2>
+<div class="cards">
+<div class="course"><span class="code">MAR312</span><h3>Coastal fisheries and marine ecology</h3><div class="meta">Natural Resources · 15 credits · Sem 2</div></div>
+<div class="course"><span class="code">EDU214</span><h3>Curriculum design in the Pacific context</h3><div class="meta">Education & Humanities · 12 credits · Sem 1</div></div>
+<div class="course"><span class="code">NUR105</span><h3>Foundations of nursing practice</h3><div class="meta">Nursing & Allied Health · 12 credits · Sem 1</div></div>
+</div>
+</div>
+<div style="height:56px"></div>
+<div class="band"></div>
+</body></html>

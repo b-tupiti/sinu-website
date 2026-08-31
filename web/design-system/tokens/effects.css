@@ -1,0 +1,19 @@
+:root {
+  --sh-1: 0 1px 2px rgba(21, 27, 38, 0.06);
+  --sh-2: 0 4px 14px rgba(21, 27, 38, 0.08);
+  --sh-3: 0 16px 40px rgba(21, 27, 38, 0.14);
+  --ring: 0 0 0 3px rgba(26, 156, 176, 0.35);
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+}
+
+[data-theme="dark"] {
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --sh-2: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --sh-3: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --ring: 0 0 0 3px rgba(53, 192, 212, 0.4);
+}
