@@ -21,9 +21,7 @@ export function SiteFooter() {
     <footer style={{ background: "var(--navy-900)", marginTop: 0 }}>
       <div style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "var(--sp-12) 24px var(--sp-8)", display: "grid", gridTemplateColumns: "1.3fr repeat(4,1fr)", gap: "var(--sp-8)" }}>
         <div style={{ display: "grid", gap: 16, alignContent: "start" }}>
-          <span style={{ background: "#fff", borderRadius: "var(--r-md)", padding: "8px 12px", display: "inline-flex", width: "fit-content" }}>
-            <Image src="/assets/sinu-logo.jpg" alt="SINU" width={107} height={36} />
-          </span>
+          <Image src="/sinu-logo-r.png" alt="SINU" width={122} height={36} style={{ width: "fit-content" }} />
           <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13.5, lineHeight: 1.65, color: "rgba(243,246,251,.6)", maxWidth: 280 }}>
             Kukum Campus, Honiara, Solomon Islands
             <br />
