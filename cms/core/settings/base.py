@@ -184,8 +184,40 @@ STORAGES = {
     },
 }
 
+# GCS wins over S3 when both are set — this project runs on GCP, so
+# the native backend is the expected one; S3 stays as a fallback for
+# other deployments. Cloud Run's default service account authenticates
+# to GCS via Application Default Credentials, so no keys need to be
+# stored — just grant the SA `roles/storage.objectAdmin` on the bucket.
+GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME") or None
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME") or None
-if AWS_STORAGE_BUCKET_NAME:
+
+if GS_BUCKET_NAME:
+    gs_options = {
+        "bucket_name": GS_BUCKET_NAME,
+        # Same-name uploads get a numeric suffix rather than overwriting —
+        # a rendition regenerated at the same size is a new object.
+        "file_overwrite": False,
+        # Uniform bucket-level access is the recommended GCS default; the
+        # backend should not attempt per-object ACLs against a uniform
+        # bucket (it would 400).
+        "default_acl": None,
+        # Return plain https://storage.googleapis.com/<bucket>/<key> URLs
+        # for a publicly readable bucket. Set GS_QUERYSTRING_AUTH=true if
+        # the bucket is private and needs signed URLs.
+        "querystring_auth": os.environ.get(
+            "GS_QUERYSTRING_AUTH", "false"
+        ).lower() == "true",
+    }
+    if project_id := os.environ.get("GS_PROJECT_ID"):
+        gs_options["project_id"] = project_id
+    if custom_endpoint := os.environ.get("GS_CUSTOM_ENDPOINT"):
+        gs_options["custom_endpoint"] = custom_endpoint
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": gs_options,
+    }
+elif AWS_STORAGE_BUCKET_NAME:
     s3_options = {
         "bucket_name": AWS_STORAGE_BUCKET_NAME,
         "file_overwrite": False,

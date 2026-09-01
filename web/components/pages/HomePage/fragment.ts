@@ -27,9 +27,15 @@ export const HOME_PAGE_FRAGMENT = /* GraphQL */ `
           urlPath
         }
         image {
-          url
-          width
-          height
+          # Request a hero-sized rendition rather than the raw upload
+          # so we don't ship a multi-megabyte original to every visitor
+          # (Vercel's image optimiser is off — Wagtail is the single
+          # source of image variants).
+          rendition(width: 1920) {
+            url
+            width
+            height
+          }
           title
         }
         video {

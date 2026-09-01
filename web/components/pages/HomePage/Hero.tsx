@@ -134,12 +134,15 @@ function HeroBackground({ slide, active }: { slide: HeroItem; active: boolean })
   }
 
   // Image path — same wrapper-gradient pattern. Failed <Image> hides
-  // itself so the gradient underneath is what remains.
-  if (slide.image?.url && !imageFailed) {
+  // itself so the gradient underneath is what remains. Source URL
+  // comes from Wagtail's rendition (see fragment.ts) — with
+  // unoptimized: true in next.config.ts, Next passes it straight
+  // through without a re-encode step.
+  if (slide.image?.rendition?.url && !imageFailed) {
     return (
       <div style={{ ...style, background: BRAND_GRADIENT }}>
         <Image
-          src={slide.image.url}
+          src={slide.image.rendition.url}
           alt={slide.image.title}
           fill
           priority={active}
