@@ -61,7 +61,7 @@ export default async function HomePage({ page }: { page: HomePageType }) {
               margin: "0 auto",
             }}
           >
-            <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: "clamp(42px, 4.6vw, 64px)", lineHeight: 1.06, letterSpacing: "-0.02em", margin: "0 0 24px" }}>{page.title}</h1>
+            <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: "clamp(42px, 4.6vw, 64px)", lineHeight: 1.06, letterSpacing: "-0.02em", margin: "0 0 24px" }}>{homepage.title}</h1>
             <p className="hero-lead" style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: 20, lineHeight: 1.5, color: "rgba(255,255,255,.8)", margin: "0 0 26px" }}>{homepage.lead}</p>
             <div style={{ display: "flex", gap: 26, alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginTop: 8 }}>
               <Link
