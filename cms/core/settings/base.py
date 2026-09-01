@@ -271,7 +271,10 @@ WAGTAIL_HEADLESS_PREVIEW = {
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 # Video formats are included so editors can upload hero-slide videos
 # through the document library (used by HeroItemBlock's video field).
-WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip', 'mp4', 'webm', 'mov']
+WAGTAILDOCS_EXTENSIONS = [
+    'csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip',
+    'mp4', 'webm', 'mov',
+]
 
 # Maximum upload size for documents in bytes.
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
