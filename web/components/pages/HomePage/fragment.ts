@@ -13,6 +13,7 @@ export const HOME_PAGE_FRAGMENT = /* GraphQL */ `
       id
       blockType
       ... on HeroItemBlock {
+        display
         mainText
         subText
         primaryButtonText

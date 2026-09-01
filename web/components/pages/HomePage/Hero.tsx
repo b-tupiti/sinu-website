@@ -6,12 +6,26 @@ import { useCallback, useEffect, useState } from "react";
 import type { HeroItem } from "./types";
 
 const AUTO_ADVANCE_MS = 7000;
+const BRAND_GRADIENT =
+  "linear-gradient(135deg, var(--navy-900) 0%, var(--teal-600) 100%)";
 
-export default function Hero({ items }: { items: HeroItem[] }) {
+export default function Hero({
+  items,
+  isDraft,
+}: {
+  items: HeroItem[];
+  isDraft: boolean;
+}) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const slides = items;
+  // Live: filter out items the editor unchecked. Preview: keep them
+  // all so editors can iterate on staged slides; a badge on the
+  // rendered card marks the hidden ones. `display` may be null on
+  // older items saved before the field existed — treat as visible.
+  const slides = isDraft
+    ? items
+    : items.filter((i) => i.display !== false);
 
   // No hero items → keep the section height but fill it with a
   // brand gradient (navy-900 → teal-600) so the space still reads as
@@ -70,6 +84,8 @@ export default function Hero({ items }: { items: HeroItem[] }) {
 
       <HeroContent slide={active} key={active.id} />
 
+      {isDraft && active.display === false && <HiddenBadge />}
+
       {isSlider && (
         <>
           <SlideButton direction="prev" onClick={() => advance(-1)} />
@@ -82,6 +98,11 @@ export default function Hero({ items }: { items: HeroItem[] }) {
 }
 
 function HeroBackground({ slide, active }: { slide: HeroItem; active: boolean }) {
+  // Two failure trackers — video prefers over image, but if the video
+  // errors we still try the image before giving up to the gradient.
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
+
   const style: React.CSSProperties = {
     position: "absolute",
     inset: 0,
@@ -89,40 +110,48 @@ function HeroBackground({ slide, active }: { slide: HeroItem; active: boolean })
     opacity: active ? 1 : 0,
     transition: "opacity 700ms ease",
   };
-  if (slide.video?.url) {
+
+  // Video path — wrapper holds the brand gradient so anything the
+  // video doesn't cover (loading, transparent, errored) still reads
+  // as deliberate branding. On onError we drop through to image /
+  // gradient rather than leaving a broken <video> element on screen.
+  if (slide.video?.url && !videoFailed) {
     return (
-      <video
-        src={slide.video.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-        style={{ ...style, width: "100%", height: "100%", objectFit: "cover" }}
-      />
+      <div style={{ ...style, background: BRAND_GRADIENT }}>
+        <video
+          src={slide.video.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          onError={() => setVideoFailed(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
     );
   }
-  if (slide.image?.url) {
+
+  // Image path — same wrapper-gradient pattern. Failed <Image> hides
+  // itself so the gradient underneath is what remains.
+  if (slide.image?.url && !imageFailed) {
     return (
-      <div style={style}>
+      <div style={{ ...style, background: BRAND_GRADIENT }}>
         <Image
           src={slide.image.url}
           alt={slide.image.title}
           fill
           priority={active}
           sizes="100vw"
+          onError={() => setImageFailed(true)}
           style={{ objectFit: "cover" }}
         />
       </div>
     );
   }
-  return (
-    <div
-      style={{
-        ...style,
-        background: "linear-gradient(135deg, var(--navy-800), var(--navy-900))",
-      }}
-    />
-  );
+
+  // No media (or all media failed) → same brand gradient the
+  // empty-hero state uses.
+  return <div style={{ ...style, background: BRAND_GRADIENT }} />;
 }
 
 function HeroContent({ slide }: { slide: HeroItem }) {
@@ -224,6 +253,39 @@ function HeroLink({
     <Link href={href} className="hero-cta" style={base}>
       {text}
     </Link>
+  );
+}
+
+function HiddenBadge() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 16,
+        right: 16,
+        zIndex: 6,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        padding: "6px 12px",
+        borderRadius: "var(--r-pill)",
+        background: "rgba(217, 96, 48, 0.95)",
+        color: "#fff",
+        fontFamily: "var(--font-sans)",
+        fontSize: 12,
+        fontWeight: 600,
+        letterSpacing: ".04em",
+        textTransform: "uppercase",
+        boxShadow: "0 2px 6px rgba(0,0,0,.25)",
+      }}
+      aria-label="This slide is hidden on live"
+    >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+        <line x1="1" y1="1" x2="23" y2="23" />
+      </svg>
+      Hidden — not on live
+    </div>
   );
 }
 

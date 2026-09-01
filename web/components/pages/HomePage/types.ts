@@ -17,6 +17,9 @@ export type HeroVideo = {
 export type HeroItem = {
   id: string;
   blockType: "HeroItemBlock";
+  // Editor's per-item feature flag. Null or true = visible on live;
+  // false = hidden on live but still rendered in preview with a badge.
+  display: boolean | null;
   mainText: string;
   subText: string;
   primaryButtonText: string;

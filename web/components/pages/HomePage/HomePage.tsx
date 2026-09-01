@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { draftMode } from "next/headers";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -19,7 +20,14 @@ const wrap = { maxWidth: "var(--container)", margin: "0 auto", padding: "0 24px"
 const h2 = { margin: 0, fontFamily: "var(--font-serif)", fontWeight: 500, fontSize: "var(--t-h2)", letterSpacing: "-0.01em", color: "var(--text-heading)" };
 
 export default async function HomePage({ page }: { page: HomePageType }) {
-  const [homepage, faculties, events, news, researchNews] = await Promise.all([getHomepage(), getFaculties(), getEvents(), getNews(), getResearchNews()]);
+  const [homepage, faculties, events, news, researchNews, { isEnabled: isDraft }] = await Promise.all([
+    getHomepage(),
+    getFaculties(),
+    getEvents(),
+    getNews(),
+    getResearchNews(),
+    draftMode(),
+  ]);
 
   return (
     <div style={{ background: "var(--bg-page)", minHeight: "100vh" }}>
@@ -32,7 +40,7 @@ export default async function HomePage({ page }: { page: HomePageType }) {
             <SiteHeaderMobile page="home" dark />
           </div>
         </div>
-        <Hero items={page.hero} />
+        <Hero items={page.hero} isDraft={isDraft} />
         <div
           className="course-finder-card"
           style={{

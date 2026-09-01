@@ -1,5 +1,6 @@
 from grapple.helpers import register_streamfield_block
 from grapple.models import (
+    GraphQLBoolean,
     GraphQLDocument,
     GraphQLImage,
     GraphQLPage,
@@ -25,6 +26,14 @@ class HeroItemBlock(blocks.StructBlock):
     neither is set the frontend falls back to a plain gradient.
     """
 
+    # Per-item feature flag. Unchecked items are excluded from the
+    # live page but still render in preview (with a "Hidden" badge)
+    # so editors can iterate on staged slides before flipping them on.
+    display = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Uncheck to hide this item on the live site. Preview still shows it.",
+    )
     main_text = blocks.CharBlock(
         required=True,
         max_length=200,
@@ -71,6 +80,7 @@ class HeroItemBlock(blocks.StructBlock):
     )
 
     graphql_fields = [
+        GraphQLBoolean("display"),
         GraphQLString("main_text"),
         GraphQLString("sub_text"),
         GraphQLString("primary_button_text"),
