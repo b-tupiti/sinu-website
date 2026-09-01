@@ -27,30 +27,16 @@ export default function Hero({
     ? items
     : items.filter((i) => i.display !== false);
 
-  // No hero items → keep the section height but fill it with a
-  // brand gradient (navy-900 → teal-600) so the space still reads as
-  // deliberate SINU branding instead of a flat void.
-  if (slides.length === 0) {
-    return (
-      <div
-        style={{
-          position: "relative",
-          flex: 1,
-          background:
-            "linear-gradient(135deg, var(--navy-900) 0%, var(--teal-600) 100%)",
-        }}
-      />
-    );
-  }
-
+  // All hooks must run every render (Rules of Hooks), so declare
+  // advance/useEffect up here before the empty-state early return.
+  // Both are no-ops when slides.length is 0 or 1.
   const advance = useCallback(
     (delta: number) => {
+      if (slides.length === 0) return;
       setIndex((i) => (i + delta + slides.length) % slides.length);
     },
     [slides.length],
   );
-
-  const safeIndex = Math.min(index, slides.length - 1);
 
   useEffect(() => {
     if (slides.length <= 1 || paused) return;
@@ -58,6 +44,22 @@ export default function Hero({
     return () => clearInterval(t);
   }, [advance, slides.length, paused]);
 
+  // No hero items → keep the section height but fill it with a
+  // brand gradient so the space still reads as deliberate SINU
+  // branding instead of a flat void.
+  if (slides.length === 0) {
+    return (
+      <div
+        style={{
+          position: "relative",
+          flex: 1,
+          background: BRAND_GRADIENT,
+        }}
+      />
+    );
+  }
+
+  const safeIndex = Math.min(index, slides.length - 1);
   const active = slides[safeIndex];
   const isSlider = slides.length > 1;
 
