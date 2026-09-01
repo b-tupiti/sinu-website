@@ -9,10 +9,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
-      // Local Wagtail media in dev — production media host should be
-      // added here once known (S3/CDN domain).
+      // Wagtail media served from disk — the CMS host in dev and
+      // prod. Only needed while storage is local; S3-backed media
+      // would use the bucket / CDN host instead.
       { protocol: "http", hostname: "localhost", port: "8000", pathname: "/media/**" },
       { protocol: "http", hostname: "127.0.0.1", port: "8000", pathname: "/media/**" },
+      { protocol: "https", hostname: "cms.sinu.rebays.com.sb", pathname: "/media/**" },
     ],
   },
 };

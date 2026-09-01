@@ -12,6 +12,7 @@ import { NewsPreview } from "@/components/home/NewsPreview";
 import { getHomepage } from "@/lib/cms/homepage";
 import { getFaculties } from "@/lib/cms/faculties";
 import { getEvents, getNews, getResearchNews } from "@/lib/cms/events";
+import Hero from "./Hero";
 import type { HomePage as HomePageType } from "./types";
 
 const wrap = { maxWidth: "var(--container)", margin: "0 auto", padding: "0 24px" };
@@ -31,49 +32,7 @@ export default async function HomePage({ page }: { page: HomePageType }) {
             <SiteHeaderMobile page="home" dark />
           </div>
         </div>
-        <div style={{ position: "relative", flex: 1, display: "flex", alignItems: "stretch" }}>
-          <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-            <Image src={homepage.heroImage.url} alt={homepage.heroImage.alt} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 1,
-              background: "linear-gradient(90deg, rgba(18,42,79,.7) 0%, rgba(18,42,79,.5) 50%, rgba(18,42,79,.7) 100%)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            className="hero-content"
-            style={{
-              position: "relative",
-              zIndex: 2,
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              padding: "var(--sp-16) 24px 150px",
-              width: "100%",
-              maxWidth: 780,
-              margin: "0 auto",
-            }}
-          >
-            <h1 style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: "clamp(42px, 4.6vw, 64px)", lineHeight: 1.06, letterSpacing: "-0.02em", margin: "0 0 24px" }}>{homepage.title}</h1>
-            <p className="hero-lead" style={{ fontFamily: "var(--font-serif)", fontWeight: 400, fontSize: 20, lineHeight: 1.5, color: "rgba(255,255,255,.8)", margin: "0 0 26px" }}>{homepage.lead}</p>
-            <div style={{ display: "flex", gap: 26, alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginTop: 8 }}>
-              <Link
-                href="/admissions"
-                className="hero-cta"
-                style={{ border: "none", cursor: "pointer", background: "#fff", color: "var(--navy-800)", fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: 16, padding: "15px 32px", borderRadius: "var(--r-pill)", whiteSpace: "nowrap", textDecoration: "none" }}
-              >
-                Apply for 2027
-              </Link>
-            </div>
-          </div>
-        </div>
+        <Hero items={page.hero} />
         <div
           className="course-finder-card"
           style={{
