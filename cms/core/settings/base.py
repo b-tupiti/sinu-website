@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
 from pathlib import Path
 
 import dj_database_url
@@ -31,6 +32,13 @@ load_dotenv(BASE_DIR / ".env")
 INSTALLED_APPS = [
     "home",
     "search",
+    # wadminoride ships Wagtail admin template overrides — it must sit
+    # above wagtail.admin so Django's app-dirs template loader finds
+    # its versions first.
+    "wadminoride",
+    "grapple",
+    "graphene_django",
+    "wagtail_headless_preview",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -81,6 +89,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wadminoride.context_processors.public_urls",
             ],
         },
     },
@@ -91,12 +100,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
-
+#
+# dj_database_url.config()'s `default=` only kicks in when the env
+# var is missing entirely — an explicitly empty DATABASE_URL parses
+# to django.db.backends.dummy and crashes on the first query. Read
+# the raw env value ourselves so unset AND empty both fall through
+# to the SQLite fallback.
+_DATABASE_URL = os.environ.get("DATABASE_URL") or f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-    )
+    "default": dj_database_url.parse(_DATABASE_URL, conn_max_age=600),
 }
 
 
@@ -149,16 +161,49 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
-# Default storage settings
-# See https://docs.djangoproject.com/en/6.1/ref/settings/#std-setting-STORAGES
+# Storage backends.
+#
+# Static files: always served via WhiteNoise (middleware is above), so
+# the storage backend uses WhiteNoise's compressed variant everywhere.
+# Production layers a manifest on top (see production.py) for
+# cache-busting; dev keeps the non-manifest form so `runserver` works
+# without a preceding `collectstatic`.
+#
+# Media (`default`): S3 when AWS_STORAGE_BUCKET_NAME is set to a
+# non-empty value; local filesystem otherwise. Credentials come from
+# the standard boto3 chain (env vars, instance profile, task role) —
+# nothing sensitive is checked in here. Endpoint / region / custom
+# domain overrides let the same block target S3-compatible services
+# (R2, MinIO, Spaces) or a CDN.
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME") or None
+if AWS_STORAGE_BUCKET_NAME:
+    s3_options = {
+        "bucket_name": AWS_STORAGE_BUCKET_NAME,
+        "file_overwrite": False,
+        "default_acl": None,
+        "querystring_auth": os.environ.get(
+            "AWS_S3_QUERYSTRING_AUTH", "false"
+        ).lower() == "true",
+    }
+    if region := os.environ.get("AWS_S3_REGION_NAME"):
+        s3_options["region_name"] = region
+    if endpoint := os.environ.get("AWS_S3_ENDPOINT_URL"):
+        s3_options["endpoint_url"] = endpoint
+    if custom_domain := os.environ.get("AWS_S3_CUSTOM_DOMAIN"):
+        s3_options["custom_domain"] = custom_domain
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": s3_options,
+    }
 
 # Django sets a maximum of 1000 fields per form by default, but particularly complex page models
 # can exceed this limit within Wagtail's page editor.
@@ -169,6 +214,16 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
 WAGTAIL_SITE_NAME = "cms"
 
+# Grapple / GraphQL
+GRAPHENE = {
+    "SCHEMA": "grapple.schema.schema",
+}
+GRAPPLE = {
+    "APPS": ["home"],
+    "RICH_TEXT_FORMAT": "html",
+    "EXPOSE_GRAPHIQL": True,
+}
+
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
@@ -178,8 +233,28 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+# e.g. in notification emails, and for absolute image/document URLs in
+# GraphQL responses (no request context). Don't include '/admin' or a
+# trailing slash.
+WAGTAILADMIN_BASE_URL = os.environ.get(
+    "WAGTAILADMIN_BASE_URL", "http://localhost:8000"
+)
+
+# Public base URL of the Next.js frontend. Used both by the headless
+# preview client and by the admin login page's branding link.
+SERVE_BASE_URL = os.environ.get("SERVE_BASE_URL", "http://localhost:3000")
+
+# Wagtail Headless Preview — sends the "preview" button in the admin to the
+# Next.js /api/preview route with a token, which flips draftMode on and
+# forwards to the real page URL.
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": "{SITE_ROOT_URL}/api/preview",
+    },
+    "SERVE_BASE_URL": SERVE_BASE_URL,
+    "REDIRECT_ON_PREVIEW": True,
+    "ENFORCE_TRAILING_SLASH": True,
+}
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk

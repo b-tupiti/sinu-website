@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteHeaderMobile } from "@/components/layout/SiteHeaderMobile";
@@ -57,7 +58,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                     <span style={{ fontFamily: "var(--font-sans)", fontSize: 14.5, color: "var(--text-heading)" }}>{v}</span>
                   </div>
                 ))}
-                <a
+                <Link
                   href="/admissions"
                   style={{
                     marginTop: 6,
@@ -75,7 +76,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                   }}
                 >
                   Enrol in this course
-                </a>
+                </Link>
               </div>
             </Card>
             {coordinator && <PersonCard name={coordinator.name} role="Course coordinator" school={coordinator.faculty} email={coordinator.email} />}

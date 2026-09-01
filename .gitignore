@@ -1,1 +1,6 @@
 .hintrc
+
+# Claude Code per-user local settings — permission decisions and other
+# machine-local overrides. A shared `.claude/settings.json` (project
+# hooks, tool policies) can still be committed if we ever add one.
+.claude/settings.local.json
