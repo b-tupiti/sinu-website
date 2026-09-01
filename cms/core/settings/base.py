@@ -32,6 +32,10 @@ load_dotenv(BASE_DIR / ".env")
 INSTALLED_APPS = [
     "home",
     "search",
+    # wadminoride ships Wagtail admin template overrides — it must sit
+    # above wagtail.admin so Django's app-dirs template loader finds
+    # its versions first.
+    "wadminoride",
     "grapple",
     "graphene_django",
     "wagtail_headless_preview",
@@ -85,6 +89,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wadminoride.context_processors.public_urls",
             ],
         },
     },
@@ -235,6 +240,10 @@ WAGTAILADMIN_BASE_URL = os.environ.get(
     "WAGTAILADMIN_BASE_URL", "http://localhost:8000"
 )
 
+# Public base URL of the Next.js frontend. Used both by the headless
+# preview client and by the admin login page's branding link.
+SERVE_BASE_URL = os.environ.get("SERVE_BASE_URL", "http://localhost:3000")
+
 # Wagtail Headless Preview — sends the "preview" button in the admin to the
 # Next.js /api/preview route with a token, which flips draftMode on and
 # forwards to the real page URL.
@@ -242,7 +251,7 @@ WAGTAIL_HEADLESS_PREVIEW = {
     "CLIENT_URLS": {
         "default": "{SITE_ROOT_URL}/api/preview",
     },
-    "SERVE_BASE_URL": os.environ.get("SERVE_BASE_URL", "http://localhost:3000"),
+    "SERVE_BASE_URL": SERVE_BASE_URL,
     "REDIRECT_ON_PREVIEW": True,
     "ENFORCE_TRAILING_SLASH": True,
 }
