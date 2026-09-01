@@ -8,4 +8,4 @@ gunicorn>=25.1,<26
 wagtail-grapple>=0.31,<0.32
 graphene-django>=3.2,<4
 wagtail-headless-preview>=0.9,<0.10
-django-storages[s3]>=1.14,<2
+django-storages[s3,google]>=1.14,<2

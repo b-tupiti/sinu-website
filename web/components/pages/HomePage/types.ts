@@ -3,9 +3,11 @@ import type { Page } from "../Page/types";
 export type HeroPage = { url: string | null; urlPath: string } | null;
 
 export type HeroImage = {
-  url: string;
-  width: number;
-  height: number;
+  // The 1920-wide rendition Wagtail generates on demand; may be null
+  // if the CMS couldn't produce one (missing source file, unsupported
+  // format). The Hero component falls back to the brand gradient in
+  // that case, same as when no image was set at all.
+  rendition: { url: string; width: number; height: number } | null;
   title: string;
 } | null;
 
