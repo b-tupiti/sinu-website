@@ -23,6 +23,12 @@ CSRF_COOKIE_SECURE = True
 # See https://firebase.google.com/docs/hosting/manage-cache#using_cookies
 SESSION_COOKIE_NAME = "__session"
 
+# Same edge behaviour also strips Django's default `csrftoken` cookie,
+# which produces 403 CSRF failures on any POST after a GET (e.g.
+# uploading a file in the admin). Store the CSRF token in the session
+# instead so it rides in `__session` through Firebase Hosting.
+CSRF_USE_SESSIONS = True
+
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "")
 
 # Compressed + hashed static files served by WhiteNoise.
