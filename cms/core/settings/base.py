@@ -308,5 +308,12 @@ WAGTAILDOCS_EXTENSIONS = [
     'mp4', 'webm', 'mov',
 ]
 
-# Maximum upload size for documents in bytes.
-WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+# Maximum upload size for documents and images in bytes. Both default
+# to 10 MB in Wagtail — bumped to 30 MB to allow hero videos and
+# high-resolution image sources. 30 (rather than 50) so we stay
+# under Cloud Run's 32 MiB HTTP/1 request-body cap; anything larger
+# would 413 at the edge before reaching Django. If genuinely large
+# uploads become common, switch to browser-direct signed-URL uploads
+# to GCS (bypasses Cloud Run's cap entirely).
+WAGTAILDOCS_MAX_UPLOAD_SIZE = 30 * 1024 * 1024  # 30 MB
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024  # 30 MB
