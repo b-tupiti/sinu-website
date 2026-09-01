@@ -1,0 +1,63 @@
+<!doctype html>
+{% load wagtailadmin_tags i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{# Copied from wagtailadmin/skeleton.html so we can populate the meta #}
+{# description and add OG / Twitter tags for link-share previews — the #}
+{# stock skeleton hardcodes an empty description and offers no block to #}
+{# inject into <head>. Admin pages are noindex, so this only affects   #}
+{# how a shared admin URL unfurls on Slack / Discord / etc.            #}
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="{% admin_theme_classname %}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block titletag %}{% endblock %} - {% block branding_title %}Wagtail{% endblock %}</title>
+
+        {% block social_meta %}
+            {% with og_title="Solomon Islands National University - Content Management" og_description="Administrative content management for the Solomon Islands National University website." og_site_name="SINU Website" og_image_path="img/og-image.png" %}
+                <meta name="description" content="{{ og_description }}" />
+                <meta property="og:site_name" content="{{ og_site_name }}" />
+                <meta property="og:title" content="{{ og_title }}" />
+                <meta property="og:description" content="{{ og_description }}" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+                <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static og_image_path %}" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="{{ og_title }}" />
+                <meta name="twitter:description" content="{{ og_description }}" />
+                <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static og_image_path %}" />
+            {% endwith %}
+        {% endblock %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
+        <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+
+        {% block css %}{% endblock %}
+
+        {% block branding_favicon %}{% endblock %}
+    </head>
+    {% sidebar_collapsed as sidebar_collapsed %}
+    {% fragment as bodyclass %}{% block bodyclass %}{% endblock %}{% endfragment %}
+    <body id="wagtail" class="{% classnames bodyclass sidebar_collapsed|yesno:"sidebar-collapsed," messages|yesno:"has-messages," %}" data-controller="w-init" data-w-init-ready-class="ready">
+        {% block icons_sprite %}
+            <div data-sprite></div>
+
+            <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+        {% endblock %}
+
+        <noscript class="capabilitymessage">
+            {% blocktrans trimmed %}
+                JavaScript is required to use Wagtail, but it is currently disabled.<br />
+                Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noreferrer">instructions how to enable JavaScript in your web browser</a>.
+            {% endblocktrans %}
+        </noscript>
+
+        {% block js %}{% endblock %}
+
+        <a class="skiplink button" href="#main" data-controller="w-focus" data-action="w-focus#focus:prevent">{% trans 'Skip to main content' %}</a>
+
+        <div class="wrapper">
+            {% block furniture %}{% endblock %}
+        </div>
+    </body>
+</html>
