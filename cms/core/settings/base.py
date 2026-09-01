@@ -244,12 +244,21 @@ WAGTAILADMIN_BASE_URL = os.environ.get(
 # preview client and by the admin login page's branding link.
 SERVE_BASE_URL = os.environ.get("SERVE_BASE_URL", "http://localhost:3000")
 
-# Wagtail Headless Preview — sends the "preview" button in the admin to the
-# Next.js /api/preview route with a token, which flips draftMode on and
-# forwards to the real page URL.
+# Wagtail Headless Preview — sends the "preview" button in the admin to
+# the Next.js /api/preview route with a token, which flips draftMode on
+# and forwards to the real page URL.
+#
+# The CLIENT_URLS template interpolates `{SITE_ROOT_URL}` from the
+# Wagtail Site record's hostname/port, which is the CMS itself (e.g.
+# localhost:80 in dev) — not the frontend. That produces a broken
+# preview URL like http://localhost/api/preview. Hardcoding the
+# frontend base from SERVE_BASE_URL instead avoids the need to keep
+# the Wagtail Site's hostname/port in sync with the frontend host, and
+# keeps the same env var driving both the preview URL and the serve()
+# redirect.
 WAGTAIL_HEADLESS_PREVIEW = {
     "CLIENT_URLS": {
-        "default": "{SITE_ROOT_URL}/api/preview",
+        "default": f"{SERVE_BASE_URL}/api/preview",
     },
     "SERVE_BASE_URL": SERVE_BASE_URL,
     "REDIRECT_ON_PREVIEW": True,
