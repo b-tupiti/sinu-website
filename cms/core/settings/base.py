@@ -31,6 +31,9 @@ load_dotenv(BASE_DIR / ".env")
 INSTALLED_APPS = [
     "home",
     "search",
+    "grapple",
+    "graphene_django",
+    "wagtail_headless_preview",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -169,6 +172,16 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
 WAGTAIL_SITE_NAME = "cms"
 
+# Grapple / GraphQL
+GRAPHENE = {
+    "SCHEMA": "grapple.schema.schema",
+}
+GRAPPLE = {
+    "APPS": ["home"],
+    "RICH_TEXT_FORMAT": "html",
+    "EXPOSE_GRAPHIQL": True,
+}
+
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
@@ -178,8 +191,25 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+# e.g. in notification emails, and for absolute image/document URLs in
+# GraphQL responses (no request context). Don't include '/admin' or a
+# trailing slash.
+import os as _os  # noqa: E402
+WAGTAILADMIN_BASE_URL = _os.environ.get(
+    "WAGTAILADMIN_BASE_URL", "http://localhost:8000"
+)
+
+# Wagtail Headless Preview — sends the "preview" button in the admin to the
+# Next.js /api/preview route with a token, which flips draftMode on and
+# forwards to the real page URL.
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": "{SITE_ROOT_URL}/api/preview",
+    },
+    "SERVE_BASE_URL": _os.environ.get("SERVE_BASE_URL", "http://localhost:3000"),
+    "REDIRECT_ON_PREVIEW": True,
+    "ENFORCE_TRAILING_SLASH": True,
+}
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk
