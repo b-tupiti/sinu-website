@@ -152,16 +152,51 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
-# Default storage settings
-# See https://docs.djangoproject.com/en/6.1/ref/settings/#std-setting-STORAGES
+import os as _os  # noqa: E402
+
+# Storage backends.
+#
+# Static files: always served via WhiteNoise (middleware is above), so
+# the storage backend uses WhiteNoise's compressed variant everywhere.
+# Production layers a manifest on top (see production.py) for
+# cache-busting; dev keeps the non-manifest form so `runserver` works
+# without a preceding `collectstatic`.
+#
+# Media (`default`): S3 when AWS_STORAGE_BUCKET_NAME is set to a
+# non-empty value; local filesystem otherwise. Credentials come from
+# the standard boto3 chain (env vars, instance profile, task role) —
+# nothing sensitive is checked in here. Endpoint / region / custom
+# domain overrides let the same block target S3-compatible services
+# (R2, MinIO, Spaces) or a CDN.
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+AWS_STORAGE_BUCKET_NAME = _os.environ.get("AWS_STORAGE_BUCKET_NAME") or None
+if AWS_STORAGE_BUCKET_NAME:
+    s3_options = {
+        "bucket_name": AWS_STORAGE_BUCKET_NAME,
+        "file_overwrite": False,
+        "default_acl": None,
+        "querystring_auth": _os.environ.get(
+            "AWS_S3_QUERYSTRING_AUTH", "false"
+        ).lower() == "true",
+    }
+    if region := _os.environ.get("AWS_S3_REGION_NAME"):
+        s3_options["region_name"] = region
+    if endpoint := _os.environ.get("AWS_S3_ENDPOINT_URL"):
+        s3_options["endpoint_url"] = endpoint
+    if custom_domain := _os.environ.get("AWS_S3_CUSTOM_DOMAIN"):
+        s3_options["custom_domain"] = custom_domain
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": s3_options,
+    }
 
 # Django sets a maximum of 1000 fields per form by default, but particularly complex page models
 # can exceed this limit within Wagtail's page editor.
@@ -194,7 +229,6 @@ WAGTAILSEARCH_BACKENDS = {
 # e.g. in notification emails, and for absolute image/document URLs in
 # GraphQL responses (no request context). Don't include '/admin' or a
 # trailing slash.
-import os as _os  # noqa: E402
 WAGTAILADMIN_BASE_URL = _os.environ.get(
     "WAGTAILADMIN_BASE_URL", "http://localhost:8000"
 )
