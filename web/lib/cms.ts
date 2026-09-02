@@ -6,6 +6,7 @@ export async function cmsFetch<T>(
 ): Promise<T> {
   const cmsUrl = process.env.CMS_GRAPHQL_URL;
   if (!cmsUrl) throw new Error("CMS_GRAPHQL_URL is not set");
+  if (!query) throw new Error("cmsFetch called with an empty query string");
 
   const res = await fetch(cmsUrl, {
     method: "POST",
