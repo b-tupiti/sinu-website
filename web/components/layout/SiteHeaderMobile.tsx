@@ -51,7 +51,14 @@ export function SiteHeaderMobile({ page, dark }: SiteHeaderMobileProps) {
       <div style={{ background: barBg, borderBottom: dark ? "1px solid rgba(255,255,255,.12)" : "1px solid var(--line-2)" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px" }}>
           <Link href="/" style={{ display: "inline-flex", flex: "none" }}>
-            <Image src="/sinu-logo-r.png" alt="Solomon Islands National University" width={120} height={36} priority style={{ display: "block" }} />
+            <Image
+              src={dark ? "/sinu-logo-white.png" : "/sinu-logo-blue.png"}
+              alt="Solomon Islands National University"
+              width={48}
+              height={48}
+              priority
+              style={{ display: "block" }}
+            />
           </Link>
           <button
             aria-label="Open menu"
@@ -81,7 +88,7 @@ export function SiteHeaderMobile({ page, dark }: SiteHeaderMobileProps) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--sp-8)" }}>
-            <Image src="/sinu-logo-r.png" alt="SINU" width={110} height={32} style={{ display: "block" }} />
+            <Image src="/sinu-logo-white.png" alt="SINU" width={44} height={44} style={{ display: "block" }} />
             <button
               aria-label="Close menu"
               onClick={() => setOpen(false)}

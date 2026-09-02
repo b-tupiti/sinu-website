@@ -112,10 +112,10 @@ export function SiteHeader({ page, dark }: SiteHeaderProps) {
         <div style={{ maxWidth: "var(--container)", margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 22 }}>
           <Link href="/" style={{ display: "inline-flex", flex: "none" }}>
             <Image
-              src="/sinu-logo-r.png"
+              src={dark ? "/sinu-logo-white.png" : "/sinu-logo-blue.png"}
               alt="Solomon Islands National University"
-              width={155}
-              height={46}
+              width={64}
+              height={64}
               style={{ display: "block" }}
               priority
             />

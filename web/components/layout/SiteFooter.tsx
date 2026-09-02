@@ -34,7 +34,7 @@ export function SiteFooter() {
       <div style={{ padding: "var(--sp-16) 0" }}>
         <div className="footer-top-row" style={{ ...container, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 320 }}>
-            <Image src="/sinu-logo-r.png" alt="SINU" width={122} height={36} style={{ width: "fit-content" }} />
+            <Image src="/sinu-logo-white.png" alt="SINU" width={72} height={72} style={{ width: "fit-content" }} />
             <p style={{ margin: 0, fontFamily: "var(--font-sans)", fontSize: 13.5, lineHeight: 1.65, color: "rgba(243,246,251,.6)" }}>
               Kukum Campus, Honiara, Solomon Islands
               <br />
